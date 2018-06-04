@@ -5,19 +5,30 @@
  * Date: 5/23/18
  * Time: 2:28 PM
  */
+include_once ROOT. '/models/Home.php';
 
 class HomeController
 {
     public function actionIndex()
     {
-        echo "Home controller, actionINdex";
-        return true;
+       $photoList = array();
+       $home = new Home();
+       $photoList = $home->getPhotoList();
+       echo '<pre>';
+       print_r($photoList);
+       echo '</pre>';
+       return true;
     }
 
     public function actionView($index)
     {
         echo "One photo, $index";
 
+        $home = new Home();
+        $photoList = $home->getPhotoById($index);
+        echo '<pre>';
+        print_r($photoList);
+        echo '</pre>';
         return true;
-    }
+            }
 }

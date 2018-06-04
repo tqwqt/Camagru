@@ -35,7 +35,7 @@ class Router
         $uri =  $this->getUri();
         foreach ($this->routes as $pattern => $path)
         {
-           // echo "pattern = $pattern, uri = $uri <br>";
+            echo "pattern = $pattern, uri = $uri <br>";
             if (preg_match("~^$pattern$~", $uri))//pattern = routes key, example 'home/([0-9]+)'
             {
                 //получаем внутрений путь
@@ -44,10 +44,9 @@ class Router
                 //определтиь котроллер, экшн, параментры
 
                 $exp = explode('/', $internalRoute);
-
                 $conName = array_shift($exp).'Controller';
                 $conName = ucfirst($conName);
-               // echo $conName;
+                echo $conName;
                 $actionName = array_shift($exp);
                 $actionName = 'action'.ucfirst($actionName);
                 //echo "<br>";
@@ -67,5 +66,9 @@ class Router
                     break;
             }
         }
+
+        //$arr = ['str', 1, 'sl'];
     }
 }
+
+/*?>*/
