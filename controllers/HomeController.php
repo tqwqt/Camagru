@@ -14,21 +14,22 @@ class HomeController
        $photoList = array();
        $home = new Home();
        $photoList = $home->getPhotoList();
-       echo '<pre>';
-       print_r($photoList);
-       echo '</pre>';
-       return true;
+//       echo '<pre>';
+//       print_r($photoList);
+//       echo '</pre>';
+        require_once(ROOT.'/views/home/index.php');
+       return $photoList;
     }
 
     public function actionView($index)
     {
-        echo "One photo, $index";
+       // echo "One photo, $index";
 
         $home = new Home();
         $photoList = $home->getPhotoById($index);
-        echo '<pre>';
-        print_r($photoList);
-        echo '</pre>';
-        return true;
+//        echo '<pre>';
+//        print_r($photoList);
+//        echo '</pre>';
+        return $photoList;
             }
 }

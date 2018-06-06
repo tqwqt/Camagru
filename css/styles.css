@@ -1,0 +1,76 @@
+html{
+    height: 100%;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-top: -0.5px;
+    margin-bottom: -0.5px;
+    margin-left: -0.5px;
+    margin-right: -0.5px;
+}
+.like_img{
+    height: 36px;
+    width: 36px;
+    margin: 1px 1px 1px 1px;
+}
+#headerid{
+    background-color: lavenderblush;
+    border: 1px solid red;
+    height: 100px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.cont{
+
+    flex: 1 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: stretch;
+    /*justify-content: center;
+
+    height: 500px;
+    background-color: rgba(0, 0, 0, .1);
+    justify-content: flex-start;*/
+}
+.item{
+    display: flex;
+    flex-direction: column;
+    background-color: #ccc;
+    border: 1px solid red;
+    flex-basis: 700px;
+    overflow: hidden;
+    height: 500px;
+    margin: 1px 1px 3px 3px;
+}
+.photo_list{
+    position: flex;
+    justify-content: center;
+    /*flex-basis:   50%;*/
+
+    overflow: hidden;
+}
+.like_div{
+    display: flex;
+    justify-content: space-between;
+    flex-basis: 15%;
+}
+#nata{
+    width: 100%;
+    align-self: center;
+
+}
+#footerid{
+    background-color: lavenderblush;
+    border: 1px solid red;
+    height: 100px;
+    width: 100%;
+    flex: 0 0 auto;
+}
+#img_icon{
+
+    width: 100px;
+    height: 100px;
+}

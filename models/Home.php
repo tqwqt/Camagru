@@ -33,9 +33,9 @@ class Home
             . 'ORDER BY id DESC '
             . 'LIMIT 10');
         $i = 0;
-        echo '<pre>';
-        print_r($result);
-        echo '</pre>';
+//        echo '<pre>';
+//        print_r($result);
+//        echo '</pre>';
         while ($row = $result->fetch()) {
             $photoList[$i]['id'] = $row['id'];
             $photoList[$i]['description'] = $row['description'];
