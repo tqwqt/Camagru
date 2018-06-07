@@ -38,8 +38,9 @@ body{
 .item{
     display: flex;
     flex-direction: column;
-    background-color: #ccc;
-    border: 1px solid red;
+    background-color: white;
+    justify-content: space-between;
+    border: 2px solid red;
     flex-basis: 700px;
     overflow: hidden;
     height: 500px;
@@ -47,15 +48,16 @@ body{
 }
 .photo_list{
     position: flex;
-    justify-content: center;
-    /*flex-basis:   50%;*/
+    /*justify-content: space-between;*/
+    flex-basis:   100%;
 
     overflow: hidden;
 }
 .like_div{
     display: flex;
-    justify-content: space-between;
-    flex-basis: 15%;
+    justify-content: flex-end;
+    border-top: 2px solid red;
+    /*flex-basis: 15%;*/
 }
 #nata{
     width: 100%;

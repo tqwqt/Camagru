@@ -1,30 +1,22 @@
 function showFullImg(id)
 {
-
-   // var photoshow = getCookie("photoshow"+id);
     var photo_div = document.getElementById(id);
     var par = photo_div.parentNode;
     var c = par.clientHeight;
-    //alert(c);
+
     if (c === 500)
     {
-      //  alert("in 500");
-        par.style.height = "100%";
+        var pho = photo_div.firstElementChild;
+        if (pho.clientHeight > 500)
+        {
+            par.style.height = "100%";
+        }
     }
     else if (c !== 500)
     {
         par.style.height = "500px";
     }
-    // if (photoshow === "") {
-    //
-    //     par.style.height = "100%";
-    //     //document.cookie = "photoshow" + id + "=full";
-    //     setCookie("photoshow"+id, "full", 1);
-    // }
-    // else {
-    //     par.style.height = "500px";
-    //     setCookie("photoshow"+id, "", 1);
-    // }
+
 }
 function checkImgStatus(id) {
     var photoshow = getCookie("photoshow"+id);
@@ -36,11 +28,8 @@ function checkImgStatus(id) {
 }
 function likeImg(id)
 {
-
-    // alert("start");
     var photo_div = document.getElementById(id);//ClassName('photo_list');
-
-    // var par = photo_div.parentNode;
+    
     photo_div.src = "../resources/liked.png";
     //console.log(photo_div);
     //photo_div.style.setProperty('overflow', 'visible');

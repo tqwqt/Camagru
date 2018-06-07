@@ -9,6 +9,7 @@
 include ROOT.'/components/DbCamagru.php';
 class Home
 {
+
     public function getPhotoById($id)
     {
         $id = intval($id);

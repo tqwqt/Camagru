@@ -18,7 +18,7 @@ class HomeController
 //       print_r($photoList);
 //       echo '</pre>';
         require_once(ROOT.'/views/home/index.php');
-       return $photoList;
+       return true;//$photoList;
     }
 
     public function actionView($index)
@@ -30,6 +30,6 @@ class HomeController
 //        echo '<pre>';
 //        print_r($photoList);
 //        echo '</pre>';
-        return $photoList;
+        return true;//$photoList;
             }
 }
