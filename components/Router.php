@@ -35,8 +35,8 @@ class Router
         $uri =  $this->getUri();
         foreach ($this->routes as $pattern => $path)
         {
-           // echo "pattern = $pattern, uri = $uri <br>";
-            if (preg_match("~^$pattern$~", $uri))//pattern = routes key, example 'home/([0-9]+)'
+            //echo "pattern = $pattern, uri = $uri <br>";
+            if (preg_match("~$pattern~", $uri))//pattern = routes key, example 'home/([0-9]+)'
             {
                 //получаем внутрений путь
                 $internalRoute = preg_replace("~^$pattern$~", $path, $uri);
@@ -49,10 +49,14 @@ class Router
                // echo $conName;
                 $actionName = array_shift($exp);
                 $actionName = 'action'.ucfirst($actionName);
-                //echo "<br>";
-               // echo  $actionName;
-                //echo "<br>";
-                //print_r($exp);
+                if (stripos($actionName, '?') !== false)//обрезает то, что после "?"
+                {
+                    $actionName = stristr($actionName, '?', true);
+                }
+//                echo "<br>";
+//                echo  $actionName;
+//                echo "<br>";
+//                //print_r($exp);
 
                 //создание контролера и вызов метода
                 $contrFile = ROOT.'/controllers/'.$conName.'.php';

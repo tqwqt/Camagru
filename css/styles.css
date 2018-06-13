@@ -15,13 +15,7 @@ body{
     width: 36px;
     margin: 1px 1px 1px 1px;
 }
-#headerid{
-    background-color: lavenderblush;
-    border: 1px solid red;
-    height: 100px;
-    width: 100%;
-    margin-bottom: 15px;
-}
+
 .cont{
 
     flex: 1 0 auto;
@@ -40,7 +34,7 @@ body{
     flex-direction: column;
     background-color: white;
     justify-content: space-between;
-    border: 2px solid red;
+    border: 2px solid lightblue;
     flex-basis: 700px;
     overflow: hidden;
     height: 500px;
@@ -56,7 +50,7 @@ body{
 .like_div{
     display: flex;
     justify-content: flex-end;
-    border-top: 2px solid red;
+    border-top: 2px solid lightblue;
     /*flex-basis: 15%;*/
 }
 #nata{
@@ -65,14 +59,28 @@ body{
 
 }
 #footerid{
-    background-color: lavenderblush;
-    border: 1px solid red;
+    background-color: lightblue;
+    border: 1px solid aqua;
     height: 100px;
     width: 100%;
     flex: 0 0 auto;
+}
+#headerid{
+    display: flex;
+    justify-content: space-between;
+    background-color: lightblue;
+    border: 1px solid aqua;
+    height: 100px;
+    width: 100%;
+    margin-bottom: 15px;
 }
 #img_icon{
 
     width: 100px;
     height: 100px;
+}
+#logoutIcon{
+    align-self: center;
+    width: 50px;
+    height: 50px;
 }

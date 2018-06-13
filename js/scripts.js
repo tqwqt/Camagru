@@ -29,7 +29,7 @@ function checkImgStatus(id) {
 function likeImg(id)
 {
     var photo_div = document.getElementById(id);//ClassName('photo_list');
-    
+
     photo_div.src = "../resources/liked.png";
     //console.log(photo_div);
     //photo_div.style.setProperty('overflow', 'visible');
