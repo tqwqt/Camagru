@@ -71,9 +71,6 @@ class MainController
                 User::signIn($check);
                 header('Location:/cabinet/');
             }
-//       echo '<pre>';
-//       print_r($photoList);
-//       echo '</pre>';
         }
 
         require_once(ROOT . '/views/main/login.php');
@@ -91,15 +88,5 @@ class MainController
     }
 
 
-//    public function actionView($index)
-//    {
-//        // echo "One photo, $index";
-//
-//        $home = new Home();
-//        $photoList = $home->getPhotoById($index);
-////        echo '<pre>';
-////        print_r($photoList);
-////        echo '</pre>';
-//        return true;//$photoList;
-//    }
+
 }

@@ -9,7 +9,7 @@ class Main
     {
         $token = $this->random_str(15);
         $db = DbCamagru::getConnection();
-        $query = 'INSERT INTO user (login, mail, password, token) VALUES (:login, :email, :password, :token)';
+        $query = 'INSERT INTO user (login, email, password, token) VALUES (:login, :email, :password, :token)';
 
         $password = password_hash($password, PASSWORD_DEFAULT);
         $res = $db->prepare($query);
@@ -38,7 +38,7 @@ class Main
         $header .= "Date: " . date("r (T)") . " \r\n";
         $header .= iconv_mime_encode("Subject", $mail_subject, $subject_preferences);
         $mail_message = ' <!doctype html> <html>
-                <p>Holla!</p>
+                <p>Holla, '.$login.'</p>
                 <p>Thanks for register.</p>
                 <p>Activate your account with this <a href="http://localhost:8101/main/confirm?login=' . $login . '&token=' . $token . '">link</a></p>
                 <p>Best regards! Camagru.</p>

@@ -79,4 +79,15 @@ class User
         header('Location: /main');
         return false;
     }
+    public static function islikedPhoto($myId, $photoId)
+    {
+        $db = DbCamagru::getConnection();
+        $query = 'SELECT * FROM user_liked_photo WHERE user_id = :myId AND photo_id = :photoId';
+
+        $res = $db->prepare($query);
+        $res->bindParam(':myId', $myId, PDO::PARAM_INT);
+        $res->bindParam(':photoId', $photoId, PDO::PARAM_INT);
+        $res->execute();
+        return $res->fetch(2);
+    }
 }

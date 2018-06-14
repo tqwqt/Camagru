@@ -53,7 +53,7 @@ body{
     border-top: 2px solid lightblue;
     /*flex-basis: 15%;*/
 }
-#nata{
+.photo{
     width: 100%;
     align-self: center;
 
