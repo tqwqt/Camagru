@@ -46,23 +46,41 @@ class HomeController
     {
 
         $photoid = substr($photoid, 5);
-        echo "id=$photoid";
-        if ($this->isLogged)
+
+        if (User::checkLogged())
         {
             $userId = $_SESSION['userId'];
             $db = DbCamagru::getConnection();
-            $query = 'INSERT INTO user_liked_photo (user_id, photo_id) VALUES (:userId, :photoid)';
+            if (User::islikedPhoto($userId, $photoid) == false) {
 
-            $res = $db->prepare($query);
-            $res->bindParam(':userId', $userId, PDO::PARAM_INT);
-            $res->bindParam(':photoid', $photoid, PDO::PARAM_INT);
-            $res->execute();
-          }
-//        else{
-//            header('Location: /');//dell this else
-//        }
+                $query = 'INSERT INTO user_liked_photo (user_id, photo_id) VALUES (:userId, :photoid)';
 
-       $this->actionIndex();
+                $res = $db->prepare($query);
+                $res->bindParam(':userId', $userId, PDO::PARAM_INT);
+                $res->bindParam(':photoid', $photoid, PDO::PARAM_INT);
+                if ($res->execute())
+                {
+                    echo 'liked';
+                }
+                else
+                    echo 'failLike';
+            }else
+            {
+              $query = 'DELETE FROM user_liked_photo WHERE user_id = :userId AND photo_id =  :photoid';
+              $res = $db->prepare($query);
+              $res->bindParam(':userId', $userId, PDO::PARAM_INT);
+              $res->bindParam(':photoid', $photoid, PDO::PARAM_INT);
+              if ($res->execute())
+              {
+                  echo 'unliked';
+              }
+              else
+                  echo 'failUnlike';
+            }
+        }
+      // header('Location: /home');
+      // $this->actionIndex();
+
         //$dblogin = $res->fetch(2);
     }
 }

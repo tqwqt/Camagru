@@ -24,18 +24,6 @@ function checkImgStatus(id) {
     }
 }
 
-function likeImg(id) {
-    //var photo_div = document.getElementById(id);//ClassName('photo_list');
-
-    // console.log("start");
-    //console.log(photo_div.src);
-    //photo_div.src = "../resources/liked.png";
-    document.location.assign('/like/' + id);
-    //console.log(photo_div);
-    //photo_div.style.setProperty('overflow', 'visible');
-    // alert("end");
-}
-
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));

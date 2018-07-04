@@ -23,13 +23,14 @@
                 {
                     $userId = $_SESSION['userId'];
                     $tmp = User::islikedPhoto($userId, $item['id']);
-                    if (isset($tmp))
+                   //echo '<pre>'.var_dump($tmp).'</pre>';
+                    if (isset($tmp) && $tmp !== false)
                     {
-                        echo '../resources/liked.png';
+                        echo '../resources/lkd.svg';
                     }
                     else
                     {
-                        echo '../resources/friendzone.png';
+                        echo '../resources/camalike.svg';
                     }
                 }
 
@@ -44,6 +45,7 @@
 <?php require ROOT.'/footNhead/footer.php';?>
 <script src="../../js/scripts.js"></script>
 <script src="../../js/main.js"></script>
+<script src="../../js/like.js"></script>
 </body>
 </html>
 

@@ -44,6 +44,9 @@ class Router
                 //определтиь котроллер, экшн, параментры
 
                 $exp = explode('/', $internalRoute);
+//                echo '<pre>';
+//                var_dump($exp);
+//                echo  '</pre>';
                 $conName = array_shift($exp).'Controller';
                 $conName = ucfirst($conName);
                // echo $conName;
@@ -56,8 +59,9 @@ class Router
 //                echo "<br>";
 //                echo  $actionName;
 //                echo "<br>";
-//                //print_r($exp);
-
+//                echo '<pre>';
+//                var_dump($exp);
+//                echo  '</pre>';
                 //создание контролера и вызов метода
                 $contrFile = ROOT.'/controllers/'.$conName.'.php';
                 if (file_exists($contrFile))

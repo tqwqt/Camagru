@@ -71,10 +71,10 @@ class User
     }
     public static function checkLogged()
     {
-        session_start();
-        if (isset($_SESSION['userLogin']))
-        {
-            return $_SESSION['userLogin'];
+        if (!isset($_SESSION))
+            session_start();
+        if (isset($_SESSION['userLogin'])) {
+        return $_SESSION['userLogin'];
         }
         header('Location: /main');
         return false;

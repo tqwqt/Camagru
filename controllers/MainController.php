@@ -74,9 +74,6 @@ class MainController
         }
 
         require_once(ROOT . '/views/main/login.php');
-//        echo '<pre>';
-//        echo "HELOOOOOOOOOOOO";
-//        echo '</pre>';
         return true;//$photoList;
     }
     public function actionLogout()
