@@ -18,12 +18,12 @@
             </div>
             <div class="like_div">
                 <!--<link rel="shortcut icon" href="/Camagru/resources/fzone.ico" type="image/png">-->
+                <div class="coommentIcon"><img src="../../resources/chat.svg" class="commentImg" onclick="showComments()"></div>
                 <img class="like_img" src="<?php
                 if ($this->isLogged)
                 {
                     $userId = $_SESSION['userId'];
                     $tmp = User::islikedPhoto($userId, $item['id']);
-                   //echo '<pre>'.var_dump($tmp).'</pre>';
                     if (isset($tmp) && $tmp !== false)
                     {
                         echo '../resources/lkd.svg';
@@ -34,9 +34,8 @@
                     }
                 }
 
-                ?>" id="like_<?php echo $item['id'];?>" onclick="likeImg(id)">
-                <p>23</p>
-                <a href="">Comments </a>
+                ?>" id="like_<?php echo $item['id'];?>" onclick="likeImg(id, <?php echo $home->getLikesCount($item['id']);?>)">
+                <p><?php echo $item['likes'];?></p>
             </div>
         </div>
         <?php endforeach;?>

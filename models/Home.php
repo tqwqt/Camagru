@@ -30,10 +30,9 @@ class Home
         $db = DbCamagru::getConnection();
 
         $photoList = array();
-        $result = $db->query('SELECT id, description, url, user_id '
+        $result = $db->query('SELECT id, description, url, user_id, likes '
             . 'FROM photo '
-            . 'ORDER BY id DESC '
-            . 'LIMIT 10');
+            . 'ORDER BY id DESC ');
         $i = 0;
 
         while ($row = $result->fetch()) {
@@ -41,9 +40,24 @@ class Home
             $photoList[$i]['description'] = $row['description'];
             $photoList[$i]['url'] = $row['url'];
             $photoList[$i]['user_id'] = $row['user_id'];
+            $photoList[$i]['likes'] = $row['likes'];
             $i++;
         }
 
         return $photoList;
+    }
+    public function getLikesCount($photoId)
+    {
+        $db = DbCamagru::getConnection();
+        $query = 'SELECT * FROM photo WHERE id = :photoId';
+//        echo '<pre>';
+//        var_dump($photoId);
+//        echo '</pre>';
+        $res = $db->prepare($query);
+        $res->bindParam(':photoId', $photoId, PDO::PARAM_INT);
+        $res->execute();
+        $res = $res->fetch(2);
+
+        return $res['likes'];
     }
 }

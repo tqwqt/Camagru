@@ -55,3 +55,11 @@ function addText(parent, attributes, text) {
     }
     parent.appendChild(elem);
 }
+
+function cabinet() {
+    document.location.assign('/cabinet');
+}
+
+function gallery() {
+    document.location.assign('/home');
+}

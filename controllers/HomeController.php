@@ -46,6 +46,7 @@ class HomeController
     {
 
         $photoid = substr($photoid, 5);
+        $home = new Home();
 
         if (User::checkLogged())
         {
@@ -60,7 +61,12 @@ class HomeController
                 $res->bindParam(':photoid', $photoid, PDO::PARAM_INT);
                 if ($res->execute())
                 {
-                    echo 'liked';
+                    $qlikesInc = 'UPDATE photo SET likes = likes + 1 WHERE id = :photoid';
+                    $resInc = $db->prepare($qlikesInc);
+                    $resInc->bindParam(':photoid', $photoid, PDO::PARAM_INT);
+                    $resInc->execute();
+                    echo 'liked'.$home->getLikesCount($photoid);
+
                 }
                 else
                     echo 'failLike';
@@ -72,7 +78,11 @@ class HomeController
               $res->bindParam(':photoid', $photoid, PDO::PARAM_INT);
               if ($res->execute())
               {
-                  echo 'unliked';
+                  $qlikesInc = 'UPDATE photo SET likes = likes - 1 WHERE id = :photoid';
+                  $resInc = $db->prepare($qlikesInc);
+                  $resInc->bindParam(':photoid', $photoid, PDO::PARAM_INT);
+                  $resInc->execute();
+                  echo 'unliked'.$home->getLikesCount($photoid);
               }
               else
                   echo 'failUnlike';
@@ -82,5 +92,12 @@ class HomeController
       // $this->actionIndex();
 
         //$dblogin = $res->fetch(2);
+    }
+    public function actionShowLikes($photoId)
+    {
+        $photoId = substr($photoId, 5);
+        $home = new Home();
+        //var_dump($home->getLikesCount($photoId));
+        echo $home->getLikesCount($photoId);
     }
 }

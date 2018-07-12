@@ -8,6 +8,7 @@ return array(
     'cabinet' => 'cabinet/cabinet',
     'logout' => 'main/logout',
     'like/like_([0-9]+)' => 'home/like/like_$1',
+    'showLikes/like_([0-9]+)' => 'home/showLikes/like_$1',
     //call actionINdex in NewsCOntroler
     //'prod' => 'prod/list' //call actonList in ProdControler
 );
