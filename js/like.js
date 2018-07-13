@@ -11,9 +11,9 @@ function likeImg(id) {
 
     ajaxPost('http://localhost:8101/like/' + id,function (data) {
         var status = data.match(/\D+/);//data.substring(0,data.length - 1);
-        console.log('status='+status);
+     //   console.log('status='+status);
         var likes = data.match(/\d+/);
-        console.log('likes='+likes);
+      //  console.log('likes='+likes);
         if (status.toString().localeCompare("liked".toString()) === 0)
         {
             document.getElementById(id).setAttribute('src',  '../resources/lkd.svg');
@@ -25,9 +25,30 @@ function likeImg(id) {
         photo_like.nextElementSibling.innerHTML = likes;
     });
 }
-function showComments(photoId) {
+function showComments(commentPrevId) {
 
-    
+    //{type:"email", name:"email", placeholder:"email"}
+    var parent = document.getElementById(commentPrevId).parentNode.parentNode.nextElementSibling;
+
+    if (parent.hasChildNodes())
+    {
+        while (parent.firstChild)
+        {
+            parent.removeChild(parent.firstChild);
+        }
+    }
+    else {
+        ajaxPost('http://localhost:8101/showComments/'+commentPrevId, function (data) {
+            console.log(data);
+            var jsonObj = JSON.parse(data);
+            for(var com in jsonObj)
+            {
+                addCommentBlock(parent, jsonObj[com].text);
+                console.log(jsonObj[com].login);
+            }
+        });
+    }
+
 }
 function ajaxPost(url, callback) {
     var f = callback || function (data) {};

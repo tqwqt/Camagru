@@ -56,6 +56,18 @@ function addText(parent, attributes, text) {
     parent.appendChild(elem);
 }
 
+function addCommentBlock(parent, text) {
+    var elem = document.createElement("div");
+    elem.style.backgroundColor = 'lightblue';
+    elem.style.borderRadius = '5px';
+    elem.style.margin = '5px';
+   // elem.style.padding = '5px';
+    addText(elem, {}, text);
+    var p = elem.firstElementChild;
+    p.style.margin = '3px 5px 3px 5px';
+    parent.appendChild(elem);
+}
+
 function cabinet() {
     document.location.assign('/cabinet');
 }

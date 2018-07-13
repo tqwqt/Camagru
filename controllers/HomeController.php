@@ -88,10 +88,6 @@ class HomeController
                   echo 'failUnlike';
             }
         }
-      // header('Location: /home');
-      // $this->actionIndex();
-
-        //$dblogin = $res->fetch(2);
     }
     public function actionShowLikes($photoId)
     {
@@ -100,4 +96,24 @@ class HomeController
         //var_dump($home->getLikesCount($photoId));
         echo $home->getLikesCount($photoId);
     }
+
+    public function actionShowComments($photoId)
+    {
+        $photoId = substr($photoId, 5);
+        $db = DbCamagru::getConnection();
+
+        $query = 'SELECT comment.id,  comment.text, user.login FROM comment 
+                  LEFT JOIN user
+                  ON comment.user_id = user.id
+                  WHERE comment.photo_id = :photoId';
+
+        $res = $db->prepare($query);
+        $res->bindParam(':photoId', $photoId, PDO::PARAM_INT);
+        if ($res->execute()) {
+            $res = $res->fetchAll(2);
+            $res = json_encode($res,JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK ,2);
+            print_r($res);
+        }
+    }
+
 }

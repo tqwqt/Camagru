@@ -13,12 +13,12 @@
     <div class="cont"  >
         <?php foreach ($photoList as $item):?>
         <div class="item">
-            <div class="photo_list" id=<?php echo 'p' . $item['id'];?> onclick="showFullImg(id)">
+            <div class="photo_list" id=<?php echo 'p' . $item['id'];?> ><!--onclick="showFullImg(id)">-->
                 <img  class="photo" src="../../<?php echo $item['url'];?>">
             </div>
             <div class="like_div">
                 <!--<link rel="shortcut icon" href="/Camagru/resources/fzone.ico" type="image/png">-->
-                <div class="coommentIcon"><img src="../../resources/chat.svg" class="commentImg" onclick="showComments()"></div>
+                <div class="commentPrevBlock" ><img src="../../resources/chat.svg" class="commentImg" id="<?php echo 'comm_'.$item['id'];?>" onclick="showComments(id)"></div>
                 <img class="like_img" src="<?php
                 if ($this->isLogged)
                 {
@@ -37,6 +37,7 @@
                 ?>" id="like_<?php echo $item['id'];?>" onclick="likeImg(id, <?php echo $home->getLikesCount($item['id']);?>)">
                 <p><?php echo $item['likes'];?></p>
             </div>
+            <div></div>
         </div>
         <?php endforeach;?>
 
