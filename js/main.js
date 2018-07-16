@@ -56,7 +56,7 @@ function addText(parent, attributes, text) {
     parent.appendChild(elem);
 }
 
-function addCommentBlock(parent, text) {
+function addCommentBlock(parent, text, area) {
     var elem = document.createElement("div");
     elem.style.backgroundColor = 'lightblue';
     elem.style.borderRadius = '5px';
@@ -65,7 +65,7 @@ function addCommentBlock(parent, text) {
     addText(elem, {}, text);
     var p = elem.firstElementChild;
     p.style.margin = '3px 5px 3px 5px';
-    parent.appendChild(elem);
+    parent.insertBefore(elem, area);
 }
 
 function cabinet() {

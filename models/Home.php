@@ -60,4 +60,9 @@ class Home
 
         return $res['likes'];
     }
+
+    public function isertComment($text)
+    {
+
+    }
 }

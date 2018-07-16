@@ -37,7 +37,10 @@
                 ?>" id="like_<?php echo $item['id'];?>" onclick="likeImg(id, <?php echo $home->getLikesCount($item['id']);?>)">
                 <p><?php echo $item['likes'];?></p>
             </div>
-            <div></div>
+            <div>
+                <textarea class="commentArea" id="<?php echo 'ta'.$item['id'];?>" placeholder="Type comment..." style="display: none"></textarea>
+                <button class="commentBtn" id="<?php echo 'btnc_'.$item['id'];?>" style="display: none" onclick="sendComment(id)">Send</button>
+            </div>
         </div>
         <?php endforeach;?>
 

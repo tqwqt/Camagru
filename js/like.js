@@ -27,30 +27,46 @@ function likeImg(id) {
 }
 function showComments(commentPrevId) {
 
-    //{type:"email", name:"email", placeholder:"email"}
     var parent = document.getElementById(commentPrevId).parentNode.parentNode.nextElementSibling;
-
-    if (parent.hasChildNodes())
+    var area = parent.getElementsByClassName('commentArea')[0];
+    var btn = parent.getElementsByClassName('commentBtn')[0];
+    console.log(parent.getElementsByClassName('commentArea')[0]);
+    console.log(parent.getElementsByClassName('commentBtn')[0]);
+    if (area.style.display === 'none')
     {
-        while (parent.firstChild)
+        area.style.display = 'inline';
+        btn.style.display = 'inline';
+
+    }
+    else{
+        area.style.display = 'none';
+        btn.style.display = 'none';
+    }
+
+    if (parent.childElementCount > 2)
+    {
+        while (parent.childElementCount > 2)
         {
             parent.removeChild(parent.firstChild);
         }
+
     }
     else {
         ajaxPost('http://localhost:8101/showComments/'+commentPrevId, function (data) {
             console.log(data);
             var jsonObj = JSON.parse(data);
+            var area = parent.firstElementChild;
             for(var com in jsonObj)
             {
-                addCommentBlock(parent, jsonObj[com].text);
+                addCommentBlock(parent, jsonObj[com].text, area);
                 console.log(jsonObj[com].login);
             }
         });
-    }
 
+    }
 }
-function ajaxPost(url, callback) {
+
+function ajaxPost(url, callback, toSend, index) {
     var f = callback || function (data) {};
 
     var req = new XMLHttpRequest();
@@ -63,9 +79,52 @@ function ajaxPost(url, callback) {
     };
 
     req.open('POST', url);
-    req.send();
+
+    if (toSend)
+    {
+        var fd = new FormData();
+        fd.append(index,toSend);
+        req.send(fd);
+    }
+    else
+        req.send()
 }
 
+function sendComment(btn) {
+
+     var area = document.getElementById(btn).parentNode.getElementsByClassName('commentArea')[0];
+     var text = area.value.toString();
+     if (text !== "")
+     {
+         var jstext = {text:text};
+         jstext =  JSON.stringify(text);
+
+         ajaxPost('http://localhost:8101/addComment',function (data) {
+
+     //+btn+'='+text, function (data) {
+             if (data.toString().localeCompare('OK') === 0)
+             {
+                 var prevComBlock = btn.parentNode.parentNode;
+                 prevComBlock = prevComBlock.previousSibling;
+                 showComments(prevComBlock);
+                 console.log("added");
+             }
+             else
+             {
+                // alert('http://localhost:8101/addComment/'+btn+"="+text);
+                 console.log('data='+data+';');
+                 //alert("Something goes wrong!");
+             }
+         }, text, 'comment');
+     }
+   // var photoId = commentsDiv.parentNode.firstChild;
+    // ajaxPost('http://lacalhost:8101/addComment/'+photoId, function (data) {
+    //     if (data.toString().localeCompare('OK') === 0)
+    //     {
+    //         //showComments()
+    //     }
+    // });
+}
 // function getLikeCount(id) {
 //
 //     var req = new XMLHttpRequest();

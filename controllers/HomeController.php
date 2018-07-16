@@ -24,24 +24,10 @@ class HomeController
        $photoList = array();
        $home = new Home();
        $photoList = $home->getPhotoList();
-//       echo '<pre>';
-//       print_r($photoList);
-//       echo '</pre>';
         require_once(ROOT.'/views/home/index.php');
        return true;//$photoList;
     }
 
-//    public function actionView($index)
-//    {
-//       // echo "One photo, $index";
-//
-//        $home = new Home();
-//        $photoList = $home->getPhotoById($index);
-////        echo '<pre>';
-////        print_r($photoList);
-////        echo '</pre>';
-//        return true;//$photoList;
-//    }
     public function actionLike($photoid)
     {
 
@@ -115,5 +101,14 @@ class HomeController
             print_r($res);
         }
     }
+    public function actionAddComment()
+    {
+//        echo $info;
+//        $arr = explode('+', $info);
+//        echo $arr[0];
+//        echo "wtf";
+        print_r($_POST);
+        echo 'shit';
 
+    }
 }
