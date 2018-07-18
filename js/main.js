@@ -56,16 +56,38 @@ function addText(parent, attributes, text) {
     parent.appendChild(elem);
 }
 
-function addCommentBlock(parent, text, area) {
+function addCommentBlock(parent,text, addCommentArea, login, commentId, sessionLogin) {
     var elem = document.createElement("div");
     elem.style.backgroundColor = 'lightblue';
     elem.style.borderRadius = '5px';
     elem.style.margin = '5px';
-   // elem.style.padding = '5px';
+    elem.style.padding = '5px';
+    var bold = document.createElement('b');
+    var logtext = document.createTextNode(login);
+    bold.appendChild(logtext);
+    elem.appendChild(bold);
+    elem.setAttribute('com-id', commentId);
+    if (login.toString().localeCompare(sessionLogin) === 0)
+    {
+        var del = document.createElement("img");
+        del.src ='../../resources/removeComment.svg';
+        del.style.height = '2vh';
+        del.style.float = "right";
+        elem.appendChild(del);
+        elem.onclick = function(event, parent){
+            var target = event.target;
+             var tId = target.parentNode;
+            // console.log(tId.getAttribute('com-id'));
+             console.log(target.tagName);
+            if (target.tagName !== "IMG")
+                return;
+            removeComment(target);
+        }
+    }
     addText(elem, {}, text);
     var p = elem.firstElementChild;
     p.style.margin = '3px 5px 3px 5px';
-    parent.insertBefore(elem, area);
+    parent.insertBefore(elem, addCommentArea);
 }
 
 function cabinet() {

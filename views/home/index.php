@@ -18,7 +18,7 @@
             </div>
             <div class="like_div">
                 <!--<link rel="shortcut icon" href="/Camagru/resources/fzone.ico" type="image/png">-->
-                <div class="commentPrevBlock" ><img src="../../resources/chat.svg" class="commentImg" id="<?php echo 'comm_'.$item['id'];?>" onclick="showComments(id)"></div>
+                <div class="commentPrevBlock" ><img src="../../resources/chat.svg" class="commentImg" id="<?php echo 'comm_'.$item['id'];?>" onclick="showComments(id, login = <?php echo '\''.$this->userLogin.'\''; ?>)"></div>
                 <img class="like_img" src="<?php
                 if ($this->isLogged)
                 {
@@ -37,9 +37,9 @@
                 ?>" id="like_<?php echo $item['id'];?>" onclick="likeImg(id, <?php echo $home->getLikesCount($item['id']);?>)">
                 <p><?php echo $item['likes'];?></p>
             </div>
-            <div>
+            <div class="commentsBlock">
                 <textarea class="commentArea" id="<?php echo 'ta'.$item['id'];?>" placeholder="Type comment..." style="display: none"></textarea>
-                <button class="commentBtn" id="<?php echo 'btnc_'.$item['id'];?>" style="display: none" onclick="sendComment(id)">Send</button>
+                <button class="commentBtn" id="<?php echo 'btnc_'.$item['id'];?>" style="display: none" onclick="sendComment(id, login = <?php echo '\''.$this->userLogin.'\''; ?>)">Send</button>
             </div>
         </div>
         <?php endforeach;?>

@@ -10,12 +10,14 @@ include_once ROOT. '/models/Home.php';
 class HomeController
 {
     private $isLogged = false;
+    private $userLogin = NULL;
 
     public function actionIndex()
     {
        if (User::checkLogged() !== false)
        {
            $this->isLogged = true;
+           $this->userLogin = User::checkLogged();
        }
        else
        {
@@ -103,12 +105,21 @@ class HomeController
     }
     public function actionAddComment()
     {
-//        echo $info;
-//        $arr = explode('+', $info);
-//        echo $arr[0];
-//        echo "wtf";
-        print_r($_POST);
-        echo 'shit';
+        $home = new Home();
+        if ($home->isertComment($_POST['comment'], substr($_POST['photoId'], 5)))
+            echo 'OK';
+        else
+            echo "false";
+
+    }
+
+    public function actionRemoveComment()
+    {
+        $home = new Home();
+        if ($home->removeComment($_POST['commentId'] ))
+            echo 'OK';
+        else
+            echo "false";
 
     }
 }

@@ -61,8 +61,33 @@ class Home
         return $res['likes'];
     }
 
-    public function isertComment($text)
+    public function isertComment($text, $photoId)
     {
+        $db = DbCamagru::getConnection();
+        if (!isset($_SESSION))
+            session_start();
+        $userId = $_SESSION['userId'];
+        $query = 'INSERT INTO comment (user_id, photo_id, text) VALUES (:userId, :photoId, :text)';
+        $res = $db->prepare($query);
 
+        $res->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $res->bindParam(':photoId', $photoId, PDO::PARAM_INT);
+        $res->bindParam(':text', $text, PDO::PARAM_STR);
+        return $res->execute();
+    }
+
+    public function removeComment($id)
+    {
+        $db = DbCamagru::getConnection();
+
+        if (!isset($_SESSION))
+            session_start();
+        $uid = $_SESSION['userId'];
+
+        $query = 'DELETE FROM comment WHERE user_id = :uid AND id = :id';
+        $res = $db->prepare($query);
+        $res->bindParam(':uid', $uid, PDO::PARAM_INT);
+        $res->bindParam(':id', $id, PDO::PARAM_INT);
+        return $res->execute();
     }
 }

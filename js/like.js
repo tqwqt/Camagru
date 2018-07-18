@@ -25,48 +25,57 @@ function likeImg(id) {
         photo_like.nextElementSibling.innerHTML = likes;
     });
 }
-function showComments(commentPrevId) {
+function showComments(commentPrevId, loggedInUser=false, added=false ) {
 
     var parent = document.getElementById(commentPrevId).parentNode.parentNode.nextElementSibling;
     var area = parent.getElementsByClassName('commentArea')[0];
     var btn = parent.getElementsByClassName('commentBtn')[0];
-    console.log(parent.getElementsByClassName('commentArea')[0]);
-    console.log(parent.getElementsByClassName('commentBtn')[0]);
-    if (area.style.display === 'none')
-    {
-        area.style.display = 'inline';
-        btn.style.display = 'inline';
-
-    }
-    else{
-        area.style.display = 'none';
-        btn.style.display = 'none';
-    }
-
-    if (parent.childElementCount > 2)
-    {
-        while (parent.childElementCount > 2)
+   // console.log(parent.getElementsByClassName('commentArea')[0]);
+    //console.log(parent.getElementsByClassName('commentBtn')[0]);
+    console.log('inshow');
+    if (!added){
+        if (area.style.display === 'none')
         {
-            parent.removeChild(parent.firstChild);
+            area.style.display = 'inline';
+            btn.style.display = 'inline';
+
+        }
+        else{
+            area.style.display = 'none';
+            btn.style.display = 'none';
         }
 
+        if (parent.childElementCount > 2)
+        {
+            while (parent.childElementCount > 2)
+            {
+                parent.removeChild(parent.firstChild);
+            }
+
+        }
+        else {
+            ajaxPost('http://localhost:8101/showComments/'+commentPrevId, function (data) {
+                console.log(data);
+                var jsonObj = JSON.parse(data);
+                var area = parent.firstElementChild;
+                for(var com in jsonObj)
+                {
+                    addCommentBlock(parent,jsonObj[com].text, area, jsonObj[com].login, jsonObj[com].id, loggedInUser );
+                }
+            });
+
+        }
     }
     else {
         ajaxPost('http://localhost:8101/showComments/'+commentPrevId, function (data) {
-            console.log(data);
             var jsonObj = JSON.parse(data);
-            var area = parent.firstElementChild;
-            for(var com in jsonObj)
-            {
-                addCommentBlock(parent, jsonObj[com].text, area);
-                console.log(jsonObj[com].login);
-            }
+            var area = parent.lastElementChild.previousElementSibling;
+            addCommentBlock(parent,jsonObj[jsonObj.length - 1].text, area, jsonObj[jsonObj.length - 1].login, jsonObj[jsonObj.length - 1].id, loggedInUser);
         });
-
     }
 }
 
-function ajaxPost(url, callback, toSend, index) {
+function ajaxPost(url, callback, toSend) {
     var f = callback || function (data) {};
 
     var req = new XMLHttpRequest();
@@ -83,14 +92,17 @@ function ajaxPost(url, callback, toSend, index) {
     if (toSend)
     {
         var fd = new FormData();
-        fd.append(index,toSend);
+        for (var key in toSend)
+        {
+            fd.append(key+"",toSend[key]);
+        }
         req.send(fd);
     }
     else
         req.send()
 }
 
-function sendComment(btn) {
+function sendComment(btn, loggedUser) {
 
      var area = document.getElementById(btn).parentNode.getElementsByClassName('commentArea')[0];
      var text = area.value.toString();
@@ -104,9 +116,11 @@ function sendComment(btn) {
      //+btn+'='+text, function (data) {
              if (data.toString().localeCompare('OK') === 0)
              {
-                 var prevComBlock = btn.parentNode.parentNode;
-                 prevComBlock = prevComBlock.previousSibling;
-                 showComments(prevComBlock);
+                 var prevComBlock = document.getElementById(btn).parentNode;
+                 prevComBlock = prevComBlock.previousElementSibling;
+                 prevComBlock = prevComBlock.firstElementChild.firstElementChild.id;
+                 console.log(prevComBlock);
+                 showComments(prevComBlock,loggedUser, true);
                  console.log("added");
              }
              else
@@ -115,40 +129,28 @@ function sendComment(btn) {
                  console.log('data='+data+';');
                  //alert("Something goes wrong!");
              }
-         }, text, 'comment');
+         }, {comment:text, photoId:btn});
      }
-   // var photoId = commentsDiv.parentNode.firstChild;
-    // ajaxPost('http://lacalhost:8101/addComment/'+photoId, function (data) {
-    //     if (data.toString().localeCompare('OK') === 0)
-    //     {
-    //         //showComments()
-    //     }
-    // });
 }
-// function getLikeCount(id) {
-//
-//     var req = new XMLHttpRequest();
-//     console.log('id='+id);
-//     req.onreadystatechange = function () {
-//         if (req.readyState === 4 && req.status === 200)
-//         {
-//             console.log("response="+req.responseText);
-//             return req.responseText;
-//             // if (req.responseText !== 'false')
-//             // {
-//             //     document.getElementById(id).setAttribute('src',  '../resources/lkd.svg');
-//             //     photo_like.nextElementSibling.innerHTML = likes;
-//             //     // document.getElementById(id).nextSibling.innerHTML = likes;
-//             // }
-//             // else if (req.responseText === 'false')
-//             // {
-//             //     document.getElementById(id).setAttribute('src', '../resources/camalike.svg');
-//             //     photo_like.nextElementSibling.innerHTML = likes;
-//             //     // document.getElementById(id).nextSibling.innerHTML = likes;
-//             // }
-//         }
-//     };
-//
-//     req.open('POST', 'http://localhost:8101/showLikes/'+id);
-//     req.send();
-// }
+
+function removeComment(target) {
+
+   // var toRemove = parent.getAnonymousElementByAttribute(parent, 'com-id', id);
+   // console.log(target.parentNode);
+    //target.parentNode.removeChild(target);
+
+    ajaxPost('http://localhost:8101/removeComment',function (data) {
+
+        if (data.toString().localeCompare('OK') === 0)
+        {
+
+            var par = target.parentNode;
+            par.remove(target);
+            console.log("removed");
+        }
+        else
+        {
+            console.log('data='+data+';');
+        }
+    }, {commentId : target.parentNode.getAttribute('com-id')});
+}

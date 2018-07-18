@@ -11,6 +11,7 @@ return array(
     'showLikes/like_([0-9]+)' => 'home/showLikes/like_$1',
     'showComments/comm_([0-9]+)' => 'home/showComments/comm_$1',
     'addComment' => 'home/addComment',
+    'removeComment' => 'home/removeComment',
     //call actionINdex in NewsCOntroler
     //'prod' => 'prod/list' //call actonList in ProdControler
 );

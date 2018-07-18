@@ -12,9 +12,9 @@ body{
     background-color: aliceblue;
 }
 .like_img{
-    height: 36px;
-    width: 36px;
+    height: 3vh;
     margin: 1px 1px 1px 1px;
+    align-self: center;
 }
 
 .cont{
@@ -34,6 +34,7 @@ body{
 .item{
     display: flex;
     flex-direction: column;
+    min-width: 300px;
     background-color: white;
     border: 3px solid lightblue;
     overflow: hidden;
@@ -50,9 +51,8 @@ body{
 }
 .like_div{
     display: flex;
-    justify-content: flex-end;
     border-top: 2px solid lightblue;
-    /*flex-basis: 15%;*/
+    margin: 0px;
 }
 .photo{
     width: 100%;
@@ -92,16 +92,20 @@ body{
 }
 .commentPrevBlock{
     width: 100%;
+    align-self: center;
 }
 .commentImg{
-    width: 50px;
-    height: 50px;
+    height: 3vh;
+    align-self: center;
 }
 
 .commentArea{
     background-color: lightblue;
     border-radius: 5px;
-    width: 75%;
     margin: 3px 5px 3px 5px;
     display: none;
+}
+.commentsBlock{
+    display: flex;
+    flex-direction: column;
 }
