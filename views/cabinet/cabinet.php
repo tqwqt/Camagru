@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" href="../../css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--	href="../../css/styles.css"> -->
 </head>
 

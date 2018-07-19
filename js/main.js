@@ -28,6 +28,9 @@ function signIn()
 function logOut() {
     document.location.assign('/logout');
 }
+function toMakePhotoPage() {
+    document.location.assign('/photoStudio')
+}
 function addINput(parent,  attributes) {
 
     var elem = document.createElement('input');

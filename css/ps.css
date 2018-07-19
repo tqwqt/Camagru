@@ -1,0 +1,104 @@
+
+
+#mainPsBlock{
+
+    flex: 1 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: stretch;
+
+    /*justify-content: center;
+
+    height: 500px;
+    background-color: rgba(0, 0, 0, .1);
+    justify-content: flex-start;*/
+}
+#cameraBlock{
+    display: flex;
+    min-width: 350px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#videoDiv{
+    display: flex;
+    flex-direction: column;
+}
+#tools{
+    background-color: lightblue;
+}
+#video{
+    align-self: center;
+    min-width: 350px;
+    background-color: lightblue;
+}
+#canvasDiv{
+    display: flex;
+}
+#canvas{
+    align-self: center;
+    min-width: 300px;
+    background-color: aliceblue;
+}
+
+/*#videoBlock{*/
+     /*align-self: center;*/
+     /*min-width: 300px;*/
+     /*background-color: lightblue;*/
+ /*}*/
+.tools-img{
+    /*position: relative;*/
+    width: 5vh;
+    box-sizing: inherit;
+
+    /*resize: both;*/
+    /*overflow: hidden;*/
+}
+
+#reszPony-tool{
+    resize: both;
+    overflow: auto;
+}
+
+/*///-----------------------------///*/
+/*#block {*/
+    /*background-color: #ff0;*/
+    /*min-height: 100px;*/
+    /*min-width: 200px;*/
+    /*position: relative;*/
+    /*width: 400px;*/
+/*}*/
+/*#block_resize {*/
+    /*background-color: #000;*/
+    /*bottom: 0;*/
+    /*cursor: se-resize;*/
+    /*height: 12px;*/
+    /*margin-top: 9px;*/
+    /*position: absolute;*/
+    /*right: 0;*/
+    /*width: 12px;*/
+/*}*/
+
+#mblock {
+    /*background-color: #ff0;*/
+
+    min-width: 50px;
+    min-height: 50px;
+    height: 5vh;
+    background-image: url("../resources/tool-pony.png");
+    background-size: cover;
+    border: 1px red solid;
+    position: absolute;
+    /*width: 400px;*/
+}
+#mblock_resize {
+    background-color: #000;
+    bottom: 0;
+    cursor: se-resize;
+    height: 12px;
+    margin-top: 9px;
+    position: absolute;
+    right: 0;
+    width: 12px;
+}

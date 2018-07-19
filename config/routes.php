@@ -7,6 +7,7 @@ return array(
     'main/confirm+' => 'main/confirm',
     'cabinet' => 'cabinet/cabinet',
     'logout' => 'main/logout',
+    'photoStudio' => 'photoStudio/ps',
     'like/like_([0-9]+)' => 'home/like/like_$1',
     'showLikes/like_([0-9]+)' => 'home/showLikes/like_$1',
     'showComments/comm_([0-9]+)' => 'home/showComments/comm_$1',
