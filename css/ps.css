@@ -55,7 +55,7 @@
 }
 
 #canvasDiv{
-    display: flex;
+    border: 1px solid lavender;
     /*width: 30%;*/
 }
 #canvas{
@@ -73,6 +73,7 @@
     /*position: relative;*/
     width: 5vh;
     box-sizing: inherit;
+    border-top: 1px solid;
 
     /*resize: both;*/
     /*overflow: hidden;*/

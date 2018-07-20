@@ -15,18 +15,49 @@
 }
 #main_about{
     display: flex;
-    background-color: aqua;
+    background-color: aliceblue;
     border-radius: 20px;
+    /* align-self: center; */
     flex-direction: column;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     padding: 10px 10px 10px 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    height: 500px;
+    width: 600px;
+    justify-content: center;
 }
 #form_main{
     display: flex;
     flex-direction:column;
+    align-self: center;
+    width: 300px;
 }
 .btn{
-    background-color: darkturquoise;
-    border-radius: 4px;
-    margin-top: 5px;
+    background-color: lavender;
+    /* margin-top: 5px; */
+    font-family: sans-serif;
+    font-size: large;
+    margin: 5px 0px 5px 0px;
+    padding: 5px;
+    /* box-shadow: 0 0 20px 0 rgba(40, 109, 19, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24); */
+    border-radius: 0px;
 
+}
+
+.btn:hover{
+    background-color: #e6e6fa2b;
+}
+
+.input{
+    padding: 5px;
+    margin: -5px 0px 0px 0px;
+    font-family: sans-serif;
+    font-size: large;
+}
+
+.textLogin{
+    font-family: sans-serif;
+    font-size: large;
+    margin: 5px 0px -5px 0px;
 }

@@ -14,14 +14,14 @@
 <div id="main"  >
 
     <div id="main_about">
-        <p>Cmagru - it`s a web-site, that allows you to make photo</p>
-        <p>by web-cam or download it.</p>
-        <p>Cmagru - it`s a web-site, that allows you to make photo</p>
-        <p>by web-cam or download it.</p>
-        <p>Cmagru - it`s a web-site, that allows you to make photo</p>
-        <p>by web-cam or download it.</p>
-        <p>Cmagru - it`s a web-site, that allows you to make photo</p>
-        <p>by web-cam or download it.</p>
+<!--        <p>Cmagru - it`s a web-site, that allows you to make photo</p>-->
+<!--        <p>by web-cam or download it.</p>-->
+<!--        <p>Cmagru - it`s a web-site, that allows you to make photo</p>-->
+<!--        <p>by web-cam or download it.</p>-->
+<!--        <p>Cmagru - it`s a web-site, that allows you to make photo</p>-->
+<!--        <p>by web-cam or download it.</p>-->
+<!--        <p>Cmagru - it`s a web-site, that allows you to make photo</p>-->
+<!--        <p>by web-cam or download it.</p>-->
         <?php if(isset($errors)):?>
             <ul>
                 <?php foreach ($errors as $error): ?>
@@ -30,10 +30,10 @@
             </ul>
         <?php endif;?>
         <form id="form_main" method="post" name="" action="#">
-           Login<br><input  name="login" value="" placeholder="login">
-           Password<br><input name="password" type="password" value="" placeholder="password">
-           Repeat password<br><input type="password" name="repeat_password" placeholder="repeat password">
-           Email<br><input type="email" name="email" placeholder="email">
+            <p class="textLogin">Login</p><br><input   class="input" name="login" value="" placeholder="login">
+            <p class="textLogin">Password</p><br><input class="input" name="password" type="password" value="" placeholder="password">
+            <p class="textLogin">Repeat password</p><br><input class="input" type="password" name="repeat_password" placeholder="repeat password">
+            <p class="textLogin">Email</p><br><input type="email" class="input" name="email" placeholder="email">
             <input class="btn" type="submit" name="submitReg" value="OK">
         </form>
     </div>

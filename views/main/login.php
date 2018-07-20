@@ -14,14 +14,14 @@
 <div id="main"  >
 
     <div id="main_about">
-        <p>Cmagru - it`s a web-site, that allows you to make photo</p>
-        <p>by web-cam or download it.</p>
-        <p>Cmagru - it`s a web-site, that allows you to make photo</p>
-        <p>by web-cam or download it.</p>
-        <p>Cmagru - it`s a web-site, that allows you to make photo</p>
-        <p>by web-cam or download it.</p>
-        <p>Cmagru - it`s a web-site, that allows you to make photo</p>
-        <p>by web-cam or download it.</p>
+<!--        <p>Cmagru - it`s a web-site, that allows you to make photo</p>-->
+<!--        <p>by web-cam or download it.</p>-->
+<!--        <p>Cmagru - it`s a web-site, that allows you to make photo</p>-->
+<!--        <p>by web-cam or download it.</p>-->
+<!--        <p>Cmagru - it`s a web-site, that allows you to make photo</p>-->
+<!--        <p>by web-cam or download it.</p>-->
+<!--        <p>Cmagru - it`s a web-site, that allows you to make photo</p>-->
+<!--        <p>by web-cam or download it.</p>-->
         <?php if(isset($errors)):?>
             <ul>
                 <?php foreach ($errors as $error): ?>
@@ -30,8 +30,8 @@
             </ul>
         <?php endif;?>
         <form id="form_main" method="post" name="" action="#">
-            Login<br><input  name="login" value="" placeholder="login">
-            Password<br><input name="password" type="password" value="" placeholder="password">
+            <p class="textLogin">Login</p><br><input   class="input" name="login" value="" placeholder="login">
+            <p class="textLogin">Password</p><br><input class="input" name="password" type="password" value="" placeholder="password">
             <input class="btn" type="submit" name="btnlogin" value="Sign in" onclick="signIn()">
             <input class="btn" type="button" name="btnSignUp" value="Sign up" onclick="signUp()">
         </form>

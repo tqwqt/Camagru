@@ -52,7 +52,7 @@ class MainController
     {
         $login = '';
         $password = '';
-        echo 'Login';
+        //echo 'Login';
         if (isset($_POST['btnlogin']))
         {
             $login = $_POST['login'];
