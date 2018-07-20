@@ -59,6 +59,11 @@ body{
     align-self: center;
 
 }
+@media only screen and (min-width: 1200px)  {
+    .item{ max-width: 800px;}
+    .photo_list{max-width: 800px;}
+    }
+
 #footerid{
     background-color: lightblue;
     /*border: 2px solid aqua;*/

@@ -64,6 +64,17 @@ function makePhoto(id) {
     canva.width = video.clientWidth;
     canva.height = video.clientHeight;
     context.drawImage(video, 0, 0);
+    var stick = new Image();
+    var elem =  document.getElementById('mblock');
+    var style = elem.currentStyle || window.getComputedStyle(elem, false);
+    stick.src = style.backgroundImage.slice(4, -1).replace(/"/g, "");
+    console.log(style.width, style.height);
+    // stick.width = 10;
+    // stick.height = 10;
+    console.log(stick.width, stick.height);
+    console.log(stick.style.width, stick.style.height);
+    // stick.src = elem.style.backgroundImage.src;
+    context.drawImage(stick, 0, 0, parseInt(style.width),parseInt(style.height));
 
         //
         // var hidden_canvas = document.querySelector('canvas'),
@@ -99,10 +110,11 @@ function showCamera() {
    // var block  = document.getElementById('videoBlock');
     //block.style.display = 'none';
     var vid = document.getElementById('video');
-    var w = parseInt(window.innerWidth / 2);
+    var w = parseInt(window.innerWidth / 2 );
     var h = parseInt(window.innerHeight / 2);
     console.log(h+', '+w);
     vid.style.width = 'auto';
+    /// 320x320 || w h
     navigator.getUserMedia(
         // Настройки
         {
@@ -140,50 +152,161 @@ function showCamera() {
 function chooseTool(id) {
 
     var elem = document.getElementById(id);
-    var par = document.getElementById('mainPsBlock');
-    var newEl = document.createElement('img');
-    newEl.src = elem.src;
-    newEl.style.width = '5vh';
+    var par = document.getElementById('videoDiv');
+    var newEl = document.createElement('div');
+   // newEl.src = elem.src;
+  //  newEl.style.width = '5vh';
 
-    newEl.style.position = 'absolute';
-    newEl.id = 'reszPony-tool';
+  //  newEl.style.position = 'absolute';
+    newEl.id = 'mblock';
+    newEl.setAttribute('style', 'background-image: url(\"../resources/tool-pony.png\")');
+    var resz = document.createElement('div');
+    resz.id = 'mblock_resize';
+    newEl.appendChild(resz);
     // newEl.removeEventListener('click', this);
     //newEl.removeEventListener('onclick', chooseTool(id));
     par.appendChild(newEl);
-    newEl.addEventListener('click', resz(newEl));
-    resz(newEl);
+   // newEl.addEventListener('click', resz(newEl));
+    //resz(newEl);
+    setResize();
 }
 
-function resz(el) {
+// function resz(el) {
+//
+//     var p = el; // element to make resizable
+//     p.addEventListener('click', function init() {
+//         p.removeEventListener('click', init, false);
+//         p.className = p.className + ' resizable';
+//         var resizer = document.createElement('div');
+//         resizer.className = 'resizer';
+//         p.appendChild(resizer);
+//         resizer.addEventListener('mousedown', initDrag, false);
+//     }, false);
+//
+//     var startX, startY, startWidth, startHeight;
+//
+//     function initDrag(e) {
+//         startX = e.clientX;
+//         startY = e.clientY;
+//         startWidth = parseInt(document.defaultView.getComputedStyle(p).width, 10);
+//         startHeight = parseInt(document.defaultView.getComputedStyle(p).height, 10);
+//         document.documentElement.addEventListener('mousemove', doDrag, false);
+//         document.documentElement.addEventListener('mouseup', stopDrag, false);
+//     }
+//
+//     function doDrag(e) {
+//         p.style.width = (startWidth + e.clientX - startX) + 'px';
+//         p.style.height = (startHeight + e.clientY - startY) + 'px';
+//     }
+//
+//     function stopDrag(e) {
+//         document.documentElement.removeEventListener('mousemove', doDrag, false);
+//         document.documentElement.removeEventListener('mouseup', stopDrag, false);
+//     }
+//}
 
-    var p = el; // element to make resizable
-    p.addEventListener('click', function init() {
-        p.removeEventListener('click', init, false);
-        p.className = p.className + ' resizable';
-        var resizer = document.createElement('div');
-        resizer.className = 'resizer';
-        p.appendChild(resizer);
-        resizer.addEventListener('mousedown', initDrag, false);
-    }, false);
 
-    var startX, startY, startWidth, startHeight;
+//------------------------------------------RESIZE---------------------------------------//
+function setResize() {
+    var ie = 0;
+    var op = 0;
+    var ff = 0;
+    var block; // Основной блок
+    var block_r; // Блок для изменения размеров
+    var delta_w = 0; // Изменение по ширине
+    var delta_h = 0; // Изменение по высоте
+    /* После загрузки страницы */
+  //  onload = function () {
+        /* Определяем браузер */
+        var browser = navigator.userAgent;
+        if (browser.indexOf("Opera") != -1) op = 1;
+        else {
+            if (browser.indexOf("MSIE") != -1) ie = 1;
+            else {
+                if (browser.indexOf("Firefox") != -1) ff = 1;
+            }
+        }
+        block = document.getElementById("mblock"); // Получаем основной блок
+        block_r = document.getElementById("mblock_resize"); // Получаем блок для изменения размеров
+        document.onmouseup = clearXY; // Ставим обработку на отпускание кнопки мыши
+        block_r.onmousedown = saveWH; // Ставим обработку на нажатие кнопки мыши
+  //  };
 
-    function initDrag(e) {
-        startX = e.clientX;
-        startY = e.clientY;
-        startWidth = parseInt(document.defaultView.getComputedStyle(p).width, 10);
-        startHeight = parseInt(document.defaultView.getComputedStyle(p).height, 10);
-        document.documentElement.addEventListener('mousemove', doDrag, false);
-        document.documentElement.addEventListener('mouseup', stopDrag, false);
+    /* Функция для получения текущих координат курсора мыши */
+
+    function getXY(obj_event) {
+        if (obj_event) {
+            x = obj_event.pageX;
+            y = obj_event.pageY;
+        }
+        else {
+            x = window.event.clientX;
+            y = window.event.clientY;
+            if (ie) {
+                y -= 2;
+                x -= 2;
+            }
+        }
+        return new Array(x, y);
     }
 
-    function doDrag(e) {
-        p.style.width = (startWidth + e.clientX - startX) + 'px';
-        p.style.height = (startHeight + e.clientY - startY) + 'px';
+    function saveWH(obj_event) {
+        var point = getXY(obj_event);
+        w_block = block.clientWidth; // Текущая ширина блока
+        h_block = block.clientHeight; // Текущая высота блока
+        delta_w = w_block - point[0]; // Измеряем текущую разницу между шириной и x-координатой мыши
+        delta_h = h_block - point[1]; // Измеряем текущую разницу между высотой и y-координатой мыши
+        /* Ставим обработку движения мыши для разных браузеров */
+        document.onmousemove = resizeBlock;
+        if (op || ff) document.addEventListener("onmousemove", resizeBlock, false);
+        return false; // Отключаем стандартную обработку нажатия мыши
     }
 
-    function stopDrag(e) {
-        document.documentElement.removeEventListener('mousemove', doDrag, false);
-        document.documentElement.removeEventListener('mouseup', stopDrag, false);
+    /* Функция для измерения ширины окна */
+    function clientWidth() {
+        return document.documentElement.clientWidth == 0 ? document.body.clientWidth : document.documentElement.clientWidth;
     }
+
+    /* Функция для измерения высоты окна */
+    function clientHeight() {
+        return document.documentElement.clientHeight == 0 ? document.body.clientHeight : document.documentElement.clientHeight;
+    }
+
+    /* При отпускании кнопки мыши отключаем обработку движения курсора мыши */
+    function clearXY() {
+        document.onmousemove = null;
+    }
+
+    function resizeBlock(obj_event) {
+        var point = getXY(obj_event);
+        new_w = delta_w + point[0]; // Изменяем новое приращение по ширине
+        new_h = delta_h + point[1]; // Изменяем новое приращение по высоте
+        block.style.width = new_w + "px"; // Устанавливаем новую ширину блока
+        block.style.height = new_h + "px"; // Устанавливаем новую высоту блока
+        /* Если блок выходит за пределы экрана, то устанавливаем максимальные значения для ширины и высоты */
+        if (block.offsetLeft + block.clientWidth > clientWidth()) block.style.width = (clientWidth() - block.offsetLeft) + "px";
+        if (block.offsetTop + block.clientHeight > clientHeight()) block.style.height = (clientHeight() - block.offsetTop) + "px";
+    }
+}
+
+//--------------------------------SAVE PHOTO----------------------------------//
+
+function savePhoto(id) {
+
+    var canv = document.getElementById('canvas');
+    ajaxPost('http://localhost:8101/photoStudio/savePhoto',function (data) {
+
+        if (data.toString().localeCompare('OK') === 0)
+        {
+
+            var par = target.parentNode;
+            par.remove(target);
+            console.log("saved");
+        }
+        else
+        {
+            console.log('data='+data+';');
+        }
+    }, {img : canv.toDataURL('image/png')});
+    //console.log(canv.toDataURL('image/png'));
 }

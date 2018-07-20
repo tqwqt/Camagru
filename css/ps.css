@@ -18,23 +18,45 @@
 #cameraBlock{
     display: flex;
     min-width: 350px;
+    width: 100%;
     flex-wrap: wrap;
     justify-content: center;
+    align-self: center;
 }
 #videoDiv{
     display: flex;
     flex-direction: column;
+}
+@media only screen and (max-width: 322px)  {
+    /*.photo{ max-width: 700px;}*/
+    #videoDiv{max-width: 300px;}
+    #video{max-width: 300px;}
+    body{
+        width: 333px;
+    }
+}
+@media only screen and (min-width: 411px) and (max-width: 500px) {
+    /*.photo{ max-width: 700px;}*/
+    /*#videoDiv{max-width: 300px;}*/
+    /*#video{max-width: 300px;}*/
+    body{
+        width: 100%;
+    }
 }
 #tools{
     background-color: lightblue;
 }
 #video{
     align-self: center;
-    min-width: 350px;
     background-color: lightblue;
 }
+#videoDiv{
+    /*width: 30%;*/
+}
+
 #canvasDiv{
     display: flex;
+    /*width: 30%;*/
 }
 #canvas{
     align-self: center;
@@ -79,14 +101,26 @@
     /*right: 0;*/
     /*width: 12px;*/
 /*}*/
-
+.vidBtns{
+    background-color: violet;
+    width: 50%;
+    border: 1px solid;
+    border-radius: 0px;
+}
+.vidBtns:hover{
+    border: 1.5px solid blue;
+}
+#videoBtnsBlock{
+    display: flex;
+    justify-content: space-between;
+}
 #mblock {
     /*background-color: #ff0;*/
 
     min-width: 50px;
     min-height: 50px;
     height: 5vh;
-    background-image: url("../resources/tool-pony.png");
+    /*background-image: url("../resources/tool-pony.png");*/
     background-size: cover;
     border: 1px red solid;
     position: absolute;

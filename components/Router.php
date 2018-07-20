@@ -69,7 +69,10 @@ class Router
                     include_once($contrFile);
                 }
                 $contrObj = new $conName;
-                $res = call_user_func_array(array($contrObj, $actionName), $exp);//$contrObj->$actionName();
+                $res = call_user_func_array(array($contrObj, $actionName), $exp);
+//                var_dump($uri);
+//                var_dump($pattern);
+                //var_dump($actionName);
                 if ($res != null)
                     break;
             }
