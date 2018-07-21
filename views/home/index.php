@@ -20,10 +20,13 @@
                 <!--<link rel="shortcut icon" href="/Camagru/resources/fzone.ico" type="image/png">-->
                 <div class="commentPrevBlock" ><img src="../../resources/chat.svg" class="commentImg" id="<?php echo 'comm_'.$item['id'];?>" onclick="showComments(id, login = <?php echo '\''.$this->userLogin.'\''; ?>)"></div>
                 <img class="like_img" src="<?php
-                if ($this->isLogged)
-                {
-                    $userId = $_SESSION['userId'];
-                    $tmp = User::islikedPhoto($userId, $item['id']);
+               // if ($this->isLogged)
+              //  {
+                    if (isset($_SESSION['userId']))
+                    {
+                        $userId = $_SESSION['userId'];
+                        $tmp = User::islikedPhoto($userId, $item['id']);
+                    }
                     if (isset($tmp) && $tmp !== false)
                     {
                         echo '../resources/lkd.svg';
@@ -32,7 +35,7 @@
                     {
                         echo '../resources/camalike.svg';
                     }
-                }
+              //  }
 
                 ?>" id="like_<?php echo $item['id'];?>" onclick="likeImg(id, <?php echo $home->getLikesCount($item['id']);?>)">
                 <p><?php echo $item['likes'];?></p>

@@ -24,11 +24,15 @@
             <video id="video">
                 Your browser does not support the video tag.
             </video>
-            <div id="tools">
-<!--                <div id="">-->
-                    <img id="pony-tool" class="tools-img" onclick="chooseTool(id)" src="../../resources/tool-pony.png">
-<!--                    <div id ="tools-pony"></div>-->
-<!--                </div>-->
+            <div id="underVideoBlock">
+                <div id="tools">
+    <!--                <div id="">-->
+                        <img id="pony-tool" class="tools-img" onclick="chooseTool(id)" src="../../resources/tool-pony.png">
+    <!--                    <div id ="tools-pony"></div>-->
+    <!--                </div>-->
+                </div>
+                <button id="makePhoto" class="btn" style="display: none" onclick="makePhoto(id)">Make photo!</button>
+                <button id="savePhoto" class="btn" style="display: none" onclick="savePhoto(id)">Save this photo!</button>
             </div>
         </div>
         <div id="canvasDiv" style="display: none">
@@ -37,8 +41,6 @@
             </canvas>
         </div>
     </div>
-    <button id="makePhoto" class="btn" style="display: none" onclick="makePhoto(id)">Make photo!</button>
-    <button id="savePhoto" class="btn" style="display: none" onclick="savePhoto(id)">Save this photo!</button>
 </div>
 <?php require ROOT.'/footNhead/footer.php';?>
 <script src="../../js/main.js"></script>

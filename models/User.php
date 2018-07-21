@@ -76,7 +76,7 @@ class User
         if (isset($_SESSION['userLogin'])) {
         return $_SESSION['userLogin'];
         }
-        header('Location: /main');
+//        #88f5dd
         return false;
     }
     public static function islikedPhoto($myId, $photoId)

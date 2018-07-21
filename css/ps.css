@@ -8,12 +8,6 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: stretch;
-
-    /*justify-content: center;
-
-    height: 500px;
-    background-color: rgba(0, 0, 0, .1);
-    justify-content: flex-start;*/
 }
 #cameraBlock{
     display: flex;
@@ -26,32 +20,34 @@
 #videoDiv{
     display: flex;
     flex-direction: column;
+    width: 50%;
+    background-color: black;
 }
-@media only screen and (max-width: 322px)  {
-    /*.photo{ max-width: 700px;}*/
-    #videoDiv{max-width: 300px;}
-    #video{max-width: 300px;}
+#underVideoBlock{
+    background-color: lightblue;
+    padding: 5px;
+    border-top: 1px;
+}
+#video{
+    align-self: center;
+    background-color: lightblue;
+    width: 100%;
+}
+@media only screen and (max-width: 500px)  {
+    #videoDiv{width: 300px;}
+    #video{width: 300px;}
     body{
-        width: 333px;
+        width: 100%;
     }
 }
 @media only screen and (min-width: 411px) and (max-width: 500px) {
-    /*.photo{ max-width: 700px;}*/
-    /*#videoDiv{max-width: 300px;}*/
-    /*#video{max-width: 300px;}*/
     body{
         width: 100%;
     }
 }
 #tools{
     background-color: lightblue;
-}
-#video{
-    align-self: center;
-    background-color: lightblue;
-}
-#videoDiv{
-    /*width: 30%;*/
+    /*border-top: 1px solid;*/
 }
 
 #canvasDiv{
@@ -64,16 +60,10 @@
     background-color: aliceblue;
 }
 
-/*#videoBlock{*/
-     /*align-self: center;*/
-     /*min-width: 300px;*/
-     /*background-color: lightblue;*/
- /*}*/
 .tools-img{
     /*position: relative;*/
     width: 5vh;
     box-sizing: inherit;
-    border-top: 1px solid;
 
     /*resize: both;*/
     /*overflow: hidden;*/
@@ -84,24 +74,6 @@
     overflow: auto;
 }
 
-/*///-----------------------------///*/
-/*#block {*/
-    /*background-color: #ff0;*/
-    /*min-height: 100px;*/
-    /*min-width: 200px;*/
-    /*position: relative;*/
-    /*width: 400px;*/
-/*}*/
-/*#block_resize {*/
-    /*background-color: #000;*/
-    /*bottom: 0;*/
-    /*cursor: se-resize;*/
-    /*height: 12px;*/
-    /*margin-top: 9px;*/
-    /*position: absolute;*/
-    /*right: 0;*/
-    /*width: 12px;*/
-/*}*/
 .vidBtns{
     background-color: violet;
     width: 50%;
@@ -136,4 +108,19 @@
     position: absolute;
     right: 0;
     width: 12px;
+}
+
+#makePhoto{
+    width: 100%;
+   margin 5px;
+}
+#savePhoto{
+    width: 100%;
+
+}
+#savePhoto:hover{
+    background-color:#88f5dd;
+}
+#makePhoto:hover{
+    background-color: #88f5dd;
 }

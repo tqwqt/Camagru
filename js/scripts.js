@@ -61,53 +61,58 @@ function makePhoto(id) {
     var canva = document.getElementById('canvas');
     var context = canva.getContext('2d');
 
+    canva.parentNode.style.display = 'block';
     canva.width = video.clientWidth;
     canva.height = video.clientHeight;
     context.drawImage(video, 0, 0);
+
     var stick = new Image();
     var elem =  document.getElementById('mblock');
-    var style = elem.currentStyle || window.getComputedStyle(elem, false);
-    stick.src = style.backgroundImage.slice(4, -1).replace(/"/g, "");
-    console.log(style.width, style.height);
-    // stick.width = 10;
-    // stick.height = 10;
-    console.log(stick.width, stick.height);
-    console.log(stick.style.width, stick.style.height);
-    // stick.src = elem.style.backgroundImage.src;
-    context.drawImage(stick, 0, 0, parseInt(style.width),parseInt(style.height));
+    //elem.style.overflow = 'hidden';
+    //console.log(elem);
+    if (elem){
+        var style = elem.currentStyle || window.getComputedStyle(elem, false);
+        var newW, newH;
+       // console.log(style);
+        stick.src = style.backgroundImage.slice(4, -1).replace(/"/g, "");
+        console.log('s.w, s.h, stick.w, stick.h:', style.width, style.height, stick.width, stick.height);
+        if ((parseInt(style.width) < parseInt(style.height)))
+        {
+            newW = parseInt(style.width);
+            newH = newW * stick.height / stick.width;
+        }
+        else {
+            newH = parseInt(style.height);
+            newW = stick.width * newH / stick.height;
+        }
+      //  console.log("curent w:", stick.width);
+       // console.log("current h:", stick.height);
+       // var res = parseInt(stick.height) / parseInt(stick.width);
 
-        //
-        // var hidden_canvas = document.querySelector('canvas'),
-        //     video = document.querySelector('video.camera_stream'),
-        //     image = document.querySelector('img.photo'),
-        //
-        //     // Получаем размер видео элемента.
-        //     width = video.videoWidth,
-        //     height = video.videoHeight,
-        //
-        //     // Объект для работы с canvas.
-        //     context = hidden_canvas.getContext('2d');
-        //
-        //
-        // // Установка размеров canvas идентичных с video.
-        // hidden_canvas.width = width;
-        // hidden_canvas.height = height;
-        //
-        // // Отрисовка текущего кадра с video в canvas.
-        // context.drawImage(video, 0, 0, width, height);
-        //
-        // // Преобразование кадра в изображение dataURL.
-        // var imageDataURL = hidden_canvas.toDataURL('image/png');
-        //
-        // // Помещение изображения в элемент img.
-        // image.setAttribute('src', imageDataURL);
+       // console.log(res);
+        // stick.width = 10;
+        // stick.height = 10;
+        console.log(stick.width, stick.height);
+        console.log(stick.style.width, stick.style.height);
+        // stick.src = elem.style.backgroundImage.src;
+        console.log('w, h:', newW, newH);
+        context.drawImage(stick, 0, 0, newW, newH);
+
+    }
+
+    var sbBtn = document.getElementById('savePhoto');
+    sbBtn.style.display = 'block';
 }
 
 function showCamera() {
 
     //alert(window.innerHeight + ', '+ window.innerWidth);
     console.log('showCamera');
-   // var block  = document.getElementById('videoBlock');
+    var btnMakePhoto = document.getElementById('makePhoto');
+
+    btnMakePhoto.style.display = 'block';
+    console.log(btnMakePhoto.style.display);
+    var vidBlock  = document.getElementById('videoDiv');
     //block.style.display = 'none';
     var vid = document.getElementById('video');
     var w = parseInt(window.innerWidth / 2 );
@@ -144,6 +149,10 @@ function showCamera() {
 
         }
     );
+    console.log(window.innerWidth);
+    if (parseInt(window.innerWidth) > 500)
+        vidBlock.style.width = vid.style.width;
+
 }
 
 
@@ -278,6 +287,7 @@ function setResize() {
     }
 
     function resizeBlock(obj_event) {
+        //console.log(obj_event);
         var point = getXY(obj_event);
         new_w = delta_w + point[0]; // Изменяем новое приращение по ширине
         new_h = delta_h + point[1]; // Изменяем новое приращение по высоте

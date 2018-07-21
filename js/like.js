@@ -3,9 +3,8 @@
 
 
 function likeImg(id) {
+
     var photo_like = document.getElementById(id);//ClassName('photo_list');
-
-
    // document.location.assign('/like/' + id);
   //  console.log(photo_like.nextElementSibling);
 
@@ -22,6 +21,9 @@ function likeImg(id) {
         {
             document.getElementById(id).setAttribute('src', '../resources/camalike.svg');
         }
+        else {
+            return;
+        }
         photo_like.nextElementSibling.innerHTML = likes;
     });
 }
@@ -34,7 +36,7 @@ function showComments(commentPrevId, loggedInUser=false, added=false ) {
     //console.log(parent.getElementsByClassName('commentBtn')[0]);
     console.log('inshow');
     if (!added){
-        if (area.style.display === 'none')
+        if (area.style.display === 'none' && loggedInUser)
         {
             area.style.display = 'inline';
             btn.style.display = 'inline';

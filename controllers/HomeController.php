@@ -76,6 +76,9 @@ class HomeController
                   echo 'failUnlike';
             }
         }
+        else {
+            echo 'unlogged';
+        }
     }
     public function actionShowLikes($photoId)
     {

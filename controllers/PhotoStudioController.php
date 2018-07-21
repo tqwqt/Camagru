@@ -12,6 +12,10 @@ class PhotoStudioController
     public function actionPs()
     {
         $userLogin = User::checkLogged();
+        if ($userLogin === false)
+        {
+            header('Location: /main');
+        }
         require_once(ROOT.'/views/photoStudio/photoStudio.php');
     }
 

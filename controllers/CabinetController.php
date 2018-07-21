@@ -11,6 +11,10 @@ class CabinetController
     public function actionCabinet()
     {
         $userLogin = User::checkLogged();
+        if ($userLogin === false)
+        {
+           header('Location: /main');
+        }
         require_once(ROOT.'/views/cabinet/cabinet.php');
     }
 
