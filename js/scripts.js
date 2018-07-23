@@ -1,3 +1,6 @@
+var g_x;
+var g_y;
+
 function showFullImg(id) {
     var photo_div = document.getElementById(id);
     var par = photo_div.parentNode;
@@ -57,19 +60,36 @@ function getCookie(cname) {
 
 function makePhoto(id) {
 
+    var elem =  document.getElementById('mblock');
     var video = document.getElementById('video');
+    var f = false;
+    if (video === undefined || video.style.display.localeCompare("none") === 0)
+    {
+        video = document.getElementById('downloaded');
+        f = true;
+        var w = video.width;
+        var h = video.height;
+    }
+
+    if (elem){
+        var x = parseInt(elem.offsetLeft) - parseInt(video.offsetLeft);
+        var y = parseInt(elem.offsetTop) - parseInt(video.offsetTop);
+    }
+
+
     var canva = document.getElementById('canvas');
     var context = canva.getContext('2d');
+    var stick = new Image();
+
 
     canva.parentNode.style.display = 'block';
     canva.width = video.clientWidth;
     canva.height = video.clientHeight;
-    context.drawImage(video, 0, 0);
+    if (f)
+        context.drawImage(video, 0, 0, w, h);
+    else
+        context.drawImage(video, 0, 0);
 
-    var stick = new Image();
-    var elem =  document.getElementById('mblock');
-    //elem.style.overflow = 'hidden';
-    //console.log(elem);
     if (elem){
         var style = elem.currentStyle || window.getComputedStyle(elem, false);
         var newW, newH;
@@ -85,19 +105,11 @@ function makePhoto(id) {
             newH = parseInt(style.height);
             newW = stick.width * newH / stick.height;
         }
-      //  console.log("curent w:", stick.width);
-       // console.log("current h:", stick.height);
-       // var res = parseInt(stick.height) / parseInt(stick.width);
-
-       // console.log(res);
-        // stick.width = 10;
-        // stick.height = 10;
         console.log(stick.width, stick.height);
         console.log(stick.style.width, stick.style.height);
         // stick.src = elem.style.backgroundImage.src;
-        console.log('w, h:', newW, newH);
-        context.drawImage(stick, 0, 0, newW, newH);
-
+        // console.log('posw, posh:', elem.offsetLeft, elem.offsetTop, elem.parentNode, video.offsetLeft, video.offsetTop);
+        context.drawImage(stick, x, y, newW, newH);
     }
 
     var sbBtn = document.getElementById('savePhoto');
@@ -161,58 +173,27 @@ function showCamera() {
 function chooseTool(id) {
 
     var elem = document.getElementById(id);
-    var par = document.getElementById('videoDiv');
+    var par = document.getElementById('videoParent');
     var newEl = document.createElement('div');
    // newEl.src = elem.src;
   //  newEl.style.width = '5vh';
 
   //  newEl.style.position = 'absolute';
     newEl.id = 'mblock';
-    newEl.setAttribute('style', 'background-image: url(\"../resources/tool-pony.png\")');
+    var way = elem.src.split('/');
+    newEl.setAttribute('style', 'background-image: url(\"../resources/'+way[way.length - 1]+'\")');
     var resz = document.createElement('div');
     resz.id = 'mblock_resize';
     newEl.appendChild(resz);
     // newEl.removeEventListener('click', this);
     //newEl.removeEventListener('onclick', chooseTool(id));
     par.appendChild(newEl);
+    console.log('cordTop, cordLeft', newEl.offsetTop, newEl.offsetLeft, par.offsetTop, par.offsetLeft);
    // newEl.addEventListener('click', resz(newEl));
     //resz(newEl);
+    newEl.addEventListener('click', drugNdrop);
     setResize();
 }
-
-// function resz(el) {
-//
-//     var p = el; // element to make resizable
-//     p.addEventListener('click', function init() {
-//         p.removeEventListener('click', init, false);
-//         p.className = p.className + ' resizable';
-//         var resizer = document.createElement('div');
-//         resizer.className = 'resizer';
-//         p.appendChild(resizer);
-//         resizer.addEventListener('mousedown', initDrag, false);
-//     }, false);
-//
-//     var startX, startY, startWidth, startHeight;
-//
-//     function initDrag(e) {
-//         startX = e.clientX;
-//         startY = e.clientY;
-//         startWidth = parseInt(document.defaultView.getComputedStyle(p).width, 10);
-//         startHeight = parseInt(document.defaultView.getComputedStyle(p).height, 10);
-//         document.documentElement.addEventListener('mousemove', doDrag, false);
-//         document.documentElement.addEventListener('mouseup', stopDrag, false);
-//     }
-//
-//     function doDrag(e) {
-//         p.style.width = (startWidth + e.clientX - startX) + 'px';
-//         p.style.height = (startHeight + e.clientY - startY) + 'px';
-//     }
-//
-//     function stopDrag(e) {
-//         document.documentElement.removeEventListener('mousemove', doDrag, false);
-//         document.documentElement.removeEventListener('mouseup', stopDrag, false);
-//     }
-//}
 
 
 //------------------------------------------RESIZE---------------------------------------//
@@ -293,10 +274,59 @@ function setResize() {
         new_h = delta_h + point[1]; // Изменяем новое приращение по высоте
         block.style.width = new_w + "px"; // Устанавливаем новую ширину блока
         block.style.height = new_h + "px"; // Устанавливаем новую высоту блока
+        console.log("300 resezi, top left", block.offsetTop, block.offsetLeft);
         /* Если блок выходит за пределы экрана, то устанавливаем максимальные значения для ширины и высоты */
         if (block.offsetLeft + block.clientWidth > clientWidth()) block.style.width = (clientWidth() - block.offsetLeft) + "px";
         if (block.offsetTop + block.clientHeight > clientHeight()) block.style.height = (clientHeight() - block.offsetTop) + "px";
     }
+}
+//--------------------------------DRUG N DROP---------------------------------//
+function drugNdrop() {
+
+    var ball = document.getElementById('mblock');
+
+    ball.onmousedown = function(e) {
+
+        var coords = getCoords(ball);
+        var shiftX = e.pageX - coords.left;
+        var shiftY = e.pageY - coords.top;
+
+       // ball.style.position = 'absolute';
+        var vidDiv = document.getElementById('videoParent');
+        vidDiv.appendChild(ball);
+        moveAt(e);
+
+        ball.style.zIndex = 1000; // над другими элементами
+
+        function moveAt(e) {
+            ball.style.left = e.pageX - shiftX + 'px';
+            ball.style.top = e.pageY - shiftY + 'px';
+            console.log(ball.offsetLeft, ball.offsetTop);
+        }
+
+        document.onmousemove = function(e) {
+            moveAt(e);
+        };
+
+        ball.onmouseup = function() {
+            document.onmousemove = null;
+            ball.onmouseup = null;
+        };
+
+    };
+
+    ball.ondragstart = function() {
+        return false;
+    };
+
+    function getCoords(elem) {   // кроме IE8-
+        var box = elem.getBoundingClientRect();
+        return {
+            top: box.top + pageYOffset,
+            left: box.left + pageXOffset
+        };
+    }
+
 }
 
 //--------------------------------SAVE PHOTO----------------------------------//
@@ -309,8 +339,8 @@ function savePhoto(id) {
         if (data.toString().localeCompare('OK') === 0)
         {
 
-            var par = target.parentNode;
-            par.remove(target);
+          //  var par = target.parentNode;
+            //par.remove(target);
             console.log("saved");
         }
         else
@@ -319,4 +349,31 @@ function savePhoto(id) {
         }
     }, {img : canv.toDataURL('image/png')});
     //console.log(canv.toDataURL('image/png'));
+}
+
+//------------------------------UPLOAD FILE-----------------------------------//
+function uploadFile() {
+
+    var inpButton = document.getElementById('uploadFile');
+    var file    = inpButton.files[0];
+    var reader = new FileReader();
+
+    reader.onloadend = function () {
+        var vidPar =  document.getElementById('videoParent');
+        var vid = document.getElementById('video');
+        vid.style.display = "none";
+        var img = document.createElement('img');
+        img.src = reader.result;
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.id = "downloaded";
+        vidPar.appendChild(img);
+        var btnMakePhoto = document.getElementById('makePhoto');
+
+        btnMakePhoto.style.display = 'block';
+    };
+    console.log(file);
+    if (file){
+        reader.readAsDataURL(file);
+    }
 }

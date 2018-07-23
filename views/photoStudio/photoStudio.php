@@ -18,16 +18,28 @@
     <div id="cameraBlock">
         <div id="videoDiv" >
             <div id="videoBtnsBlock">
-                <button id="uploadBtn" class="vidBtns">Upload</button>
+                <button id="uploadBtn" class="vidBtns" onclick="document.getElementById('uploadFile').click();">
+                    <input id="uploadFile" type="file" onchange="uploadFile()"><br>Upload</button>
+
                 <button id="webCamBtn" class="vidBtns" onclick="showCamera()">Wec-cam</button>
             </div>
-            <video id="video">
-                Your browser does not support the video tag.
-            </video>
+            <div id="videoParent">
+                <video id="video">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
             <div id="underVideoBlock">
                 <div id="tools">
     <!--                <div id="">-->
                         <img id="pony-tool" class="tools-img" onclick="chooseTool(id)" src="../../resources/tool-pony.png">
+                        <img id="glasses-tool" class="tools-img" onclick="chooseTool(id)" src="../../resources/tool-glasses.png">
+                        <img id="vla-tool" class="tools-img" onclick="chooseTool(id)" src="../../resources/tool-vlastelin.png">
+                        <img id="hat-tool" class="tools-img" onclick="chooseTool(id)" src="../../resources/tool-hat.png">
+                        <img id="beard-tool" class="tools-img" onclick="chooseTool(id)" src="../../resources/tool-beard2.png">
+                        <img id="fish-tool" class="tools-img" onclick="chooseTool(id)" src="../../resources/tool-fish.png">
+                        <img id="pipe-tool" class="tools-img" onclick="chooseTool(id)" src="../../resources/tool-pipe.png">
+                        <img id="pika-tool" class="tools-img" onclick="chooseTool(id)" src="../../resources/tool-pika.png">
+                        <img id="ira-tool" class="tools-img" onclick="chooseTool(id)" src="../../resources/tool-ira.png">
     <!--                    <div id ="tools-pony"></div>-->
     <!--                </div>-->
                 </div>

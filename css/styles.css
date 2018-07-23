@@ -80,6 +80,10 @@ body{
     width: 100%;
     margin-bottom: 15px;
 }
+
+#ways{
+    display: flex;
+}
 #img_icon{
 
     width: 100px;
@@ -127,4 +131,8 @@ body{
 
 .commentBtn:hover{
     background-color: aqua;
+}
+
+.photoInfo{
+    border: 1px solid;
 }

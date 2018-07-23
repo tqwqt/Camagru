@@ -13,6 +13,7 @@
     <div class="cont"  >
         <?php foreach ($photoList as $item):?>
         <div class="item">
+            <div class="photoInfo">Login del btn</div>
             <div class="photo_list" id=<?php echo 'p' . $item['id'];?> ><!--onclick="showFullImg(id)">-->
                 <img  class="photo" src="../../<?php echo $item['url'];?>">
             </div>

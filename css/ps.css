@@ -28,6 +28,13 @@
     padding: 5px;
     border-top: 1px;
 }
+#videoParent{
+    background-color: aliceblue;
+    align-self:center;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
 #video{
     align-self: center;
     background-color: lightblue;
@@ -35,6 +42,7 @@
 }
 @media only screen and (max-width: 500px)  {
     #videoDiv{width: 300px;}
+    #videoParent{width: 300px;}
     #video{width: 300px;}
     body{
         width: 100%;
@@ -79,9 +87,11 @@
     width: 50%;
     border: 1px solid;
     border-radius: 0px;
+    padding: 10px;
 }
 .vidBtns:hover{
     border: 1.5px solid blue;
+    cursor: pointer;
 }
 #videoBtnsBlock{
     display: flex;
@@ -97,6 +107,7 @@
     background-size: cover;
     border: 1px red solid;
     position: absolute;
+    /*transform: translate(-50%, -50%);*/
     /*width: 400px;*/
 }
 #mblock_resize {
@@ -112,7 +123,7 @@
 
 #makePhoto{
     width: 100%;
-   margin 5px;
+   /*margin 5px;*/
 }
 #savePhoto{
     width: 100%;
@@ -123,4 +134,9 @@
 }
 #makePhoto:hover{
     background-color: #88f5dd;
+}
+
+#uploadFile{
+    visibility: hidden;
+    width: 0px;
 }
