@@ -1,5 +1,4 @@
-var g_x;
-var g_y;
+
 
 function showFullImg(id) {
     var photo_div = document.getElementById(id);
@@ -338,9 +337,6 @@ function savePhoto(id) {
 
         if (data.toString().localeCompare('OK') === 0)
         {
-
-          //  var par = target.parentNode;
-            //par.remove(target);
             console.log("saved");
         }
         else

@@ -14,7 +14,15 @@ class DbCamagru
         //$dbsettings = ROOT.'/config/database.php';
 
         require ROOT.'/config/database.php';
-        return new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+        try {
+            $pdo =  new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $pdo;
+        }catch (PDOException $e)
+        {
+            $e->getMessage();
+        }
+        return false;
 //        echo '<pre>';
 //        echo 'sstart';
 //        echo $DB_USER.'<br>';

@@ -10,20 +10,6 @@ include ROOT.'/components/DbCamagru.php';
 class Home
 {
 
-//    public function getPhotoById($id)
-//    {
-//        $id = intval($id);
-//        if ($id) {
-//          $db =   DbCamagru::getConnection();
-//            $result = $db->query('SELECT * FROM photo WHERE id='.$id);
-//            $result->setFetchMode(PDO::FETCH_ASSOC);
-//
-//            $item = $result->fetch();
-//            return $item;
-//        }
-//        return false;
-//    }
-
     public function getPhotoList()
     {
 
@@ -73,9 +59,44 @@ class Home
         $res->bindParam(':userId', $userId, PDO::PARAM_INT);
         $res->bindParam(':photoId', $photoId, PDO::PARAM_INT);
         $res->bindParam(':text', $text, PDO::PARAM_STR);
+        if (User::checkNotificationsStatus() === true)
+        {
+            $this->sendNotification($_SESSION['userLogin'], $text, $_SESSION['userEmail']);
+        }
         return $res->execute();
     }
 
+
+    public function sendNotification($user, $text, $victimEmail)
+    {
+
+            $encoding = "utf-8";
+            $mail_subject = "Notification";
+            $from_name = "Camagru";
+            $from_mail = "camacama@gmail.com";
+            // Set preferences for Subject field
+            $subject_preferences = array(
+                "input-charset" => $encoding,
+                "output-charset" => $encoding,
+                "line-length" => 76,
+                "line-break-chars" => "\r\n"
+            );
+            // Set mail header
+            $header = "Content-type: text/html; charset=" . $encoding . " \r\n";
+            $header .= "From: " . $from_name . " <" . $from_mail . "> \r\n";
+            $header .= "MIME-Version: 1.0 \r\n";
+            $header .= "Content-Transfer-Encoding: 8bit \r\n";
+            $header .= "Date: " . date("r (T)") . " \r\n";
+            $header .= iconv_mime_encode("Subject", $mail_subject, $subject_preferences);
+            $mail_message = ' <!doctype html> <html>'.
+                '<p>Holla</p>
+                <p>User <strong>'.$user.'</strong> left comment under your photo,</p>
+                <p>here is what he said: "'.$text.'"'.'
+                <p>Best regards! Camagru.</p>
+                </html>';
+            // Send mail
+        mail($victimEmail, $mail_subject, $mail_message, $header);
+    }
     public function removeComment($id)
     {
         $db = DbCamagru::getConnection();

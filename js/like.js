@@ -156,3 +156,10 @@ function removeComment(target) {
         }
     }, {commentId : target.parentNode.getAttribute('com-id')});
 }
+
+function setNotifications() {
+    ajaxPost('http://localhost:8101/cabinet/setNS', function (data) {
+
+    }, {});
+    // document.location.assign('/cabinet/setNS');
+}

@@ -35,11 +35,11 @@ class Router
         $uri =  $this->getUri();
         foreach ($this->routes as $pattern => $path)
         {
-           // echo "pattern = $pattern, uri = $uri <br>";
-            if (preg_match("~$pattern~", $uri))//pattern = routes key, example 'home/([0-9]+)'
+//            echo "pattern = $pattern, uri = $uri <br>";
+            if (preg_match("~^$pattern$~", $uri))//pattern = routes key, example 'home/([0-9]+)'
             {
                 //получаем внутрений путь
-                $internalRoute = preg_replace("~^$pattern$~", $path, $uri);
+                $internalRoute = preg_replace("~$pattern~", $path, $uri);
 
                 //определтиь котроллер, экшн, параментры
 
@@ -56,9 +56,9 @@ class Router
                 {
                     $actionName = stristr($actionName, '?', true);
                 }
-              //  echo "<br>";
-              //  echo  $actionName;
-              //  echo "<br>";
+//                echo "<br>";
+//                echo  $actionName;
+//                echo "<br>";
 //                echo '<pre>';
 //                var_dump($exp);
 //                echo  '</pre>';
@@ -70,11 +70,13 @@ class Router
                 }
                 $contrObj = new $conName;
                 $res = call_user_func_array(array($contrObj, $actionName), $exp);
+
 //                var_dump($uri);
 //                var_dump($pattern);
                 //var_dump($actionName);
                 if ($res != null)
                     break;
+                return;
             }
         }
 

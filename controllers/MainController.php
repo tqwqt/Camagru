@@ -31,13 +31,14 @@ class MainController
                 $errors[] = $passwordValidate;
             if (User::isLoginExist($login) === true)
                 $errors[] = 'This login is already taken!';
+            if (Main::isEmailExist($email) !== false)
+                $errors[] = 'This email is already taken!';
             if (isset($errors) || $main->register($login, $password, $email) == false )
             {
-                echo "FALSWE";
+
             }
             else
             {
-                echo "NORM";
                 header('Refresh: 1; URL=http://localhost:8101/main/login');
             }
         }
@@ -69,7 +70,8 @@ class MainController
             if (!isset($errors))
             {
                 User::signIn($check);
-                header('Location:/cabinet/');
+                header('Location:/cabinet');
+                return true;
             }
         }
 
@@ -84,6 +86,46 @@ class MainController
         header('Location:/main');
     }
 
+    public function actionForgotPassword(){
 
+        if (isset($_POST["fEmail"]) && isset($_POST["btnlogin"]))
+        {
+            $main = new Main();
+            if ($main->resetPassword($_POST['fEmail']))
+                header('Location:/main');
+            else
+            {
+                $msg = 'No such email or user is not confirmed!';
+            }
+            unset($_POST['fEmail']);
+            unset($_POST['btnlogin']);
+        }
+        require_once(ROOT . '/views/main/forgot.php');
+    }
+    public function actionRestore()
+    {
+        if (isset($_GET['email']) && isset($_GET['token']))
+        {
+            if (isset($_POST['password']))
+            {
+                $m = new Main();
+                $res = $m->changePassword($_GET['email'], $_POST['password'], -1, $_GET['token']);
+                if ($res === true)
+                {
+                    $ok = true;
+                    $m->confirmPassChange($_GET['email']);
+                }
+                else
+                {
+                    $ok = false;
+                    $errors[] = $res;
+                }
+            }
+            require_once(ROOT . '/views/main/restore.php');
+        }
+        else
+            header('Location: /main');
+
+    }
 
 }

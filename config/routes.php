@@ -2,10 +2,12 @@
 
 return array(
     'home' => 'home/index',
-    'main' => 'main/login',
     'main/register' => 'main/register',
-    'main/confirm+' => 'main/confirm',
+    'main/confirm(\d|\D)+' => 'main/confirm',
+    'main/restore\?email=(\w){4,15}@([a-z]){1,8}.([a-z]){2,5}&token=(\w){20}' => 'main/restore',
+    'main/forgotPassword' => 'main/forgotPassword',
     'cabinet' => 'cabinet/cabinet',
+    'cabinet/setNS' => 'cabinet/setNS',
     'logout' => 'main/logout',
     'like/like_([0-9]+)' => 'home/like/like_$1',
     'showLikes/like_([0-9]+)' => 'home/showLikes/like_$1',
@@ -13,7 +15,9 @@ return array(
     'addComment' => 'home/addComment',
     'removeComment' => 'home/removeComment',
     'photoStudio/savePhoto' => 'photoStudio/savePhoto',
-    'photoStudio$' => 'photoStudio/ps',
+    'photoStudio' => 'photoStudio/ps',
+    ''=>'main/login',
+    '(\d|\D)+' => 'main/login',
     //call actionINdex in NewsCOntroler
     //'prod' => 'prod/list' //call actonList in ProdControler
 );

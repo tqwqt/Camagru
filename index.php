@@ -8,7 +8,4 @@ require_once(ROOT.'/components/Autoload.php');
 //echo "\n\nroot=".ROOT.PHP_EOL;
 $router = new Router();
 $router->run();
-//echo 'hello';
-//echo "<pre>";
-//print_r(get_defined_vars());
-//echo "</pre>";
+

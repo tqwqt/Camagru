@@ -53,7 +53,7 @@ class User
         $res->execute();
         $dbhash = $res->fetch(2);
 
-        if ($dbhash !== false && $dbhash['token'] !== 'registered')
+        if ($dbhash !== false && $dbhash['verified'] !== '1')
         {
             return 'unconfirmed';
         }
@@ -68,6 +68,8 @@ class User
         session_start();
         $_SESSION['userLogin'] = $userinfo['login'];
         $_SESSION['userId'] = $userinfo['id'];
+        $_SESSION['userEmail'] = $userinfo['email'];
+        $_SESSION['userNS'] = $userinfo['notifications'];
     }
     public static function checkLogged()
     {
@@ -89,5 +91,24 @@ class User
         $res->bindParam(':photoId', $photoId, PDO::PARAM_INT);
         $res->execute();
         return $res->fetch(2);
+    }
+
+    public static function checkNotificationsStatus()
+    {
+        $db = DbCamagru::getConnection();
+
+        if (!isset($_SESSION, $_SESSION['userId']))
+            session_start();
+        $uid = $_SESSION['userId'];
+        $query = 'SELECT * FROM user WHERE id = :uid';
+        $res = $db->prepare($query);
+        $res->bindParam(':uid', $uid, PDO::PARAM_INT);
+        $res->execute();
+        $res =  $res->fetch(2);
+        if ($res['notifications'] === '1')
+            return true;
+        else
+            return false;
+
     }
 }

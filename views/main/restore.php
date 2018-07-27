@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Change password</title>
     <link rel="stylesheet" href="../../css/main.css">
     <!--	href="../../css/styles.css"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,11 +22,16 @@
             </ul>
         <?php endif;?>
         <form id="form_main" method="post" name="" action="#">
-            <p class="textLogin">Login</p><input   class="input" name="login" value="" placeholder="login">
-            <p class="textLogin">Password</p><input class="input" name="password" type="password" value="" placeholder="password">
-            <p class="textLogin">Repeat password</p><input class="input" type="password" name="repeat_password" placeholder="repeat password">
-            <p class="textLogin">Email</p><input type="email" class="input" name="email" placeholder="email">
-            <input class="btn" type="submit" name="submitReg" value="OK">
+            <p class="textLogin">Enter new password</p><input class="input" name="password" type="password" value="" placeholder="password">
+            <input class="btn" type="submit" name="submitChange" value="OK">
+            <?php
+              if (isset($ok) && $ok === true) {
+                  echo '<p class="textLogin">Password been changed successfully! </p>';
+                  unset($_POST);
+                  unset($_GET);
+                  header('Refresh: 3; URL=http://localhost:8101/main');
+              }
+              ?>
         </form>
     </div>
 </div>

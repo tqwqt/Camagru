@@ -100,3 +100,7 @@ function cabinet() {
 function gallery() {
     document.location.assign('/home');
 }
+
+function forgotPass() {
+    document.location.assign('/main/forgotPassword');
+}
