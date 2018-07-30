@@ -115,56 +115,7 @@ function makePhoto(id) {
     sbBtn.style.display = 'block';
 }
 
-function showCamera() {
 
-    //alert(window.innerHeight + ', '+ window.innerWidth);
-    console.log('showCamera');
-    var btnMakePhoto = document.getElementById('makePhoto');
-
-    btnMakePhoto.style.display = 'block';
-    console.log(btnMakePhoto.style.display);
-    var vidBlock  = document.getElementById('videoDiv');
-    //block.style.display = 'none';
-    var vid = document.getElementById('video');
-    var w = parseInt(window.innerWidth / 2 );
-    var h = parseInt(window.innerHeight / 2);
-    console.log(h+', '+w);
-    vid.style.width = 'auto';
-    /// 320x320 || w h
-    navigator.getUserMedia(
-        // Настройки
-        {
-            video: {width: w, height: h}
-        },
-        // Колбэк для успешной операции
-        function(stream){
-
-            // Создаём объект для видео потока и
-            // запускаем его в HTLM элементе video.
-            try {
-                video.srcObject = stream;
-            }catch(error)
-            {
-                video.src = URL.createObjectURL(stream);
-            }
-
-            // Воспроизводим видео.
-            video.play();
-
-        },
-        // Колбэк для не успешной операции
-        function(err){
-
-            // Наиболее частые ошибки — PermissionDenied и DevicesNotFound.
-            console.error(err);
-
-        }
-    );
-    console.log(window.innerWidth);
-    if (parseInt(window.innerWidth) > 500)
-        vidBlock.style.width = vid.style.width;
-
-}
 
 
 //---------------------------------TOOL CHOSE------------------//
@@ -173,25 +124,30 @@ function chooseTool(id) {
 
     var elem = document.getElementById(id);
     var par = document.getElementById('videoParent');
-    var newEl = document.createElement('div');
-   // newEl.src = elem.src;
-  //  newEl.style.width = '5vh';
+    var child = document.getElementById('mblock');
+    console.log(child);
+    if (child !== undefined && child !== null) {
+        child.parentNode.removeChild(child);
+    }
+        var newEl = document.createElement('div');
+        // newEl.src = elem.src;
+        //  newEl.style.width = '5vh';
 
-  //  newEl.style.position = 'absolute';
-    newEl.id = 'mblock';
-    var way = elem.src.split('/');
-    newEl.setAttribute('style', 'background-image: url(\"../resources/'+way[way.length - 1]+'\")');
-    var resz = document.createElement('div');
-    resz.id = 'mblock_resize';
-    newEl.appendChild(resz);
-    // newEl.removeEventListener('click', this);
-    //newEl.removeEventListener('onclick', chooseTool(id));
-    par.appendChild(newEl);
-    console.log('cordTop, cordLeft', newEl.offsetTop, newEl.offsetLeft, par.offsetTop, par.offsetLeft);
-   // newEl.addEventListener('click', resz(newEl));
-    //resz(newEl);
-    newEl.addEventListener('click', drugNdrop);
-    setResize();
+        //  newEl.style.position = 'absolute';
+        newEl.id = 'mblock';
+        var way = elem.src.split('/');
+        newEl.setAttribute('style', 'background-image: url(\"../resources/' + way[way.length - 1] + '\")');
+        var resz = document.createElement('div');
+        resz.id = 'mblock_resize';
+        newEl.appendChild(resz);
+        // newEl.removeEventListener('click', this);
+        //newEl.removeEventListener('onclick', chooseTool(id));
+        par.appendChild(newEl);
+        console.log('cordTop, cordLeft', newEl.offsetTop, newEl.offsetLeft, par.offsetTop, par.offsetLeft);
+        // newEl.addEventListener('click', resz(newEl));
+        //resz(newEl);
+        newEl.addEventListener('click', drugNdrop);
+        setResize();
 }
 
 
@@ -355,21 +311,133 @@ function uploadFile() {
     var reader = new FileReader();
 
     reader.onloadend = function () {
-        var vidPar =  document.getElementById('videoParent');
-        var vid = document.getElementById('video');
-        vid.style.display = "none";
-        var img = document.createElement('img');
-        img.src = reader.result;
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.id = "downloaded";
-        vidPar.appendChild(img);
-        var btnMakePhoto = document.getElementById('makePhoto');
 
-        btnMakePhoto.style.display = 'block';
+        var vidPar =  document.getElementById('videoParent');
+        if (vidPar.getElementsByTagName('img')[0] === undefined) {
+            var vid = document.getElementById('video');
+            vid.style.display = "none";
+            var img = document.createElement('img');
+            img.src = reader.result;
+            img.style.width = '100%';
+            img.style.height = '100%';
+            img.id = "downloaded";
+            vidPar.appendChild(img);
+            var btnMakePhoto = document.getElementById('makePhoto');
+
+            btnMakePhoto.style.display = 'block';
+        }
     };
-    console.log(file);
     if (file){
         reader.readAsDataURL(file);
     }
+
+}
+function showCamera() {
+
+
+    //alert(window.innerHeight + ', '+ window.innerWidth);
+    var btnMakePhoto = document.getElementById('makePhoto');
+    btnMakePhoto.style.display = 'block';
+    console.log(btnMakePhoto.style.display);
+    var vidBlock  = document.getElementById('videoDiv');
+    var img = document.getElementById('videoParent').querySelector('img');
+    if (img !== null)
+        img.parentNode.removeChild(img);
+    //block.style.display = 'none';
+    var vid = document.getElementById('video');
+    vid.style.display = 'block';
+    var w = parseInt(window.innerWidth / 2 );
+    var h = parseInt(window.innerHeight / 2);
+    vid.style.width = 'auto';
+    /// 320x320 || w h
+    navigator.getUserMedia(
+        // Настройки
+        {
+            video: {width: w, height: h}
+        },
+        // Колбэк для успешной операции
+        function(stream){
+
+            // Создаём объект для видео потока и
+            // запускаем его в HTLM элементе video.
+            try {
+                video.srcObject = stream;
+            }catch(error)
+            {
+                video.src = URL.createObjectURL(stream);
+            }
+
+            // Воспроизводим видео.
+            video.play();
+
+        },
+        // Колбэк для не успешной операции
+        function(err){
+
+            // Наиболее частые ошибки — PermissionDenied и DevicesNotFound.
+            console.error(err);
+
+        }
+    );
+    console.log(window.innerWidth);
+    if (parseInt(window.innerWidth) > 500)
+        vidBlock.style.width = vid.style.width;
+
+}
+//--------------------------------CHECK MIME------------//
+
+function checkMime() {
+    var video = document.querySelector('video');
+    var t = video.srcObject;
+    if (t !== null)
+    {
+        t = t.getTracks()[0];
+        t.stop();
+    }
+
+    // video.width = '100%';
+    var inpButton = document.getElementById('uploadFile');
+    var file    = inpButton.files[0];
+    var reader = new FileReader();
+
+    reader.onloadend = function (e) {
+        var arr = (new Uint8Array(e.target.result)).subarray(0,4);
+        var header = "";
+        for(var i = 0; i < arr.length; i++) {
+            header += arr[i].toString(16);
+        }
+
+        if (mimeType(header).localeCompare('unknown') === 0)
+        {
+            alert('Allowed files: jpeg, png');
+            return false;
+        }
+        else
+        {
+            console.log('true');
+            uploadFile();
+        }
+    };
+    // console.log(file);
+    if (file){
+        reader.readAsArrayBuffer(file);
+    }
+}
+
+function mimeType(headerString) {
+    var type;
+    switch (headerString) {
+        case "89504e47":
+            type = "image/png";
+            break;
+        case "ffd8ffe0":
+        case "ffd8ffe1":
+        case "ffd8ffe2":
+            type = "image/jpeg";
+            break;
+        default:
+            type = "unknown";
+            break;
+    }
+    return type;
 }

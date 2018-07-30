@@ -77,19 +77,17 @@ class HomeController
             }
         }
         else {
-            echo 'unlogged';
+            header('Location: /main');
         }
-    }
-    public function actionShowLikes($photoId)
-    {
-        $photoId = substr($photoId, 5);
-        $home = new Home();
-        //var_dump($home->getLikesCount($photoId));
-        echo $home->getLikesCount($photoId);
     }
 
     public function actionShowComments($photoId)
     {
+        if (User::checkLogged() === false)
+        {
+            header('Location: /main');
+            return false;
+        }
         $photoId = substr($photoId, 5);
         $db = DbCamagru::getConnection();
 
@@ -105,24 +103,36 @@ class HomeController
             $res = json_encode($res,JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK ,2);
             print_r($res);
         }
+        return true;
     }
     public function actionAddComment()
     {
+        if (User::checkLogged() === false)
+        {
+            header('Location: /main');
+            return false;
+        }
         $home = new Home();
         if ($home->isertComment($_POST['comment'], substr($_POST['photoId'], 5)))
             echo 'OK';
         else
             echo "false";
+        return true;
 
     }
 
     public function actionRemoveComment()
     {
+        if (User::checkLogged() === false)
+        {
+            header('Location: /main');
+            return false;
+        }
         $home = new Home();
         if ($home->removeComment($_POST['commentId'] ))
             echo 'OK';
         else
             echo "false";
-
+        return true;
     }
 }

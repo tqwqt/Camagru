@@ -19,7 +19,7 @@
         <div id="videoDiv" >
             <div id="videoBtnsBlock">
                 <button id="uploadBtn" class="vidBtns" onclick="document.getElementById('uploadFile').click();">
-                    <input id="uploadFile" type="file" onchange="uploadFile()"><br>Upload</button>
+                    <input id="uploadFile" type="file" onchange="checkMime()">Upload</button>
 
                 <button id="webCamBtn" class="vidBtns" onclick="showCamera()">Wec-cam</button>
             </div>

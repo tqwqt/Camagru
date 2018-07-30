@@ -13,7 +13,14 @@
     <div class="cont"  >
         <?php foreach ($photoList as $item):?>
         <div class="item">
-            <div class="photoInfo">Login del btn</div>
+            <div class="photoInfo"><p class="photo_login"><?php
+                    echo $item['login'];?>
+                    </p>
+                <?php
+
+                if (isset($_SESSION, $_SESSION['userId']) && $_SESSION['userId'] === $item['user_id'])
+                    echo '<img class="like_img" src="../../resources/delete-photo.svg">';?>
+            </div>
             <div class="photo_list" id=<?php echo 'p' . $item['id'];?> ><!--onclick="showFullImg(id)">-->
                 <img  class="photo" src="../../<?php echo $item['url'];?>">
             </div>

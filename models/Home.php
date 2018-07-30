@@ -16,14 +16,16 @@ class Home
         $db = DbCamagru::getConnection();
 
         $photoList = array();
-        $result = $db->query('SELECT id, description, url, user_id, likes '
-            . 'FROM photo '
-            . 'ORDER BY id DESC ');
+        $result = $db->query(
+            'SELECT photo.id,  photo.url, photo.likes, photo.user_id, user.login FROM photo 
+                  LEFT JOIN user
+                  ON photo.user_id = user.id
+                  ORDER BY photo.id DESC');
         $i = 0;
 
         while ($row = $result->fetch()) {
             $photoList[$i]['id'] = $row['id'];
-            $photoList[$i]['description'] = $row['description'];
+            $photoList[$i]['login'] = $row['login'];
             $photoList[$i]['url'] = $row['url'];
             $photoList[$i]['user_id'] = $row['user_id'];
             $photoList[$i]['likes'] = $row['likes'];

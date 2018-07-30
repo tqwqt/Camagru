@@ -31,11 +31,10 @@ class Router
     public function run()
     {
 
-
         $uri =  $this->getUri();
         foreach ($this->routes as $pattern => $path)
         {
-//            echo "pattern = $pattern, uri = $uri <br>";
+//           echo "pattern = $pattern, uri = $uri <br>";
             if (preg_match("~^$pattern$~", $uri))//pattern = routes key, example 'home/([0-9]+)'
             {
                 //получаем внутрений путь

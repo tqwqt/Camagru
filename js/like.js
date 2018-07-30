@@ -163,3 +163,18 @@ function setNotifications() {
     }, {});
     // document.location.assign('/cabinet/setNS');
 }
+
+function changePassword() {
+   document.location.assign('cabinet/change');
+    // document.location.assign('/cabinet/setNS');
+}
+
+
+function changeLogin() {
+    document.location.assign('cabinet/changeLogin');
+    // document.location.assign('/cabinet/setNS');
+}
+function changeEmail() {
+    document.location.assign('cabinet/changeEmail');
+}
+

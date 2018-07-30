@@ -93,6 +93,7 @@ class User
         return $res->fetch(2);
     }
 
+
     public static function checkNotificationsStatus()
     {
         $db = DbCamagru::getConnection();

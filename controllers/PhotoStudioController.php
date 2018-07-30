@@ -21,6 +21,12 @@ class PhotoStudioController
 
     public function actionSavePhoto()
     {
+
+        if (User::checkLogged() === false)
+        {
+            header('Location: /main');
+            return false;
+        }
         date_default_timezone_set('Europe/Kiev');
         if (!isset($_SESSION))
             session_start();
@@ -38,7 +44,6 @@ class PhotoStudioController
         {
             echo 'OK';
         }
-
-       //echo file_put_contents('../resources/test.png', base64_decode($b64str[1]));
+        return true;
     }
 }

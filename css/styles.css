@@ -10,6 +10,7 @@ body{
     margin-left: -0.5px;
     margin-right: -0.5px;
     background-color: aliceblue;
+    font-family: sans-serif;
 }
 .like_img{
     height: 3vh;
@@ -134,5 +135,16 @@ body{
 }
 
 .photoInfo{
+    display: flex;
+    justify-content: space-between;
     border: 1px solid;
+    background: blueviolet;
+}
+
+.photo_login{
+    font-family: sans-serif;
+    align-self: center;
+    margin: 5px;
+    font-weight: bold;
+
 }
