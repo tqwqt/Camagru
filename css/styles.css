@@ -148,3 +148,13 @@ body{
     font-weight: bold;
 
 }
+
+.moreBtn{
+    width: 50%;
+    align-self: center;
+    background-color: orange;
+    text-align: center;
+}
+.moreBtn:hover{
+    background-color: gold;
+}

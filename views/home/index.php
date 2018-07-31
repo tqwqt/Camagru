@@ -11,15 +11,16 @@
 <body>
 <?php require ROOT.'/footNhead/header.php';?>
     <div class="cont"  >
-        <?php foreach ($photoList as $item):?>
+        <?php foreach ($photoList as $key => $item):?>
         <div class="item">
             <div class="photoInfo"><p class="photo_login"><?php
-                    echo $item['login'];?>
+                    echo $item['login'];
+                   ?>
                     </p>
                 <?php
 
                 if (isset($_SESSION, $_SESSION['userId']) && $_SESSION['userId'] === $item['user_id'])
-                    echo '<img class="like_img" src="../../resources/delete-photo.svg">';?>
+                    echo "<img class=\"like_img\" onclick=\"deleteImage(".$item["id"].")\" src=\"../../resources/delete-photo.svg\">";?>
             </div>
             <div class="photo_list" id=<?php echo 'p' . $item['id'];?> ><!--onclick="showFullImg(id)">-->
                 <img  class="photo" src="../../<?php echo $item['url'];?>">
@@ -53,8 +54,10 @@
                 <button class="commentBtn" id="<?php echo 'btnc_'.$item['id'];?>" style="display: none" onclick="sendComment(id, login = <?php echo '\''.$this->userLogin.'\''; ?>)">Send</button>
             </div>
         </div>
-        <?php endforeach;?>
+        <?php
 
+        endforeach;?>
+        <div class="item moreBtn" onclick="tipoScroll()">More </div>
     </div>
 <?php require ROOT.'/footNhead/footer.php';?>
 <script src="../../js/scripts.js"></script>

@@ -2,6 +2,7 @@
 
 return array(
     'home' => 'home/index',
+    'home/deleteImage' => 'home/deleteImage',
     'main/register' => 'main/register',
     'main/confirm(\d|\D)+' => 'main/confirm',
     'main/restore\?email=(\w){4,15}@([a-z]){1,8}.([a-z]){2,5}&token=(\w){20}' => 'main/restore',

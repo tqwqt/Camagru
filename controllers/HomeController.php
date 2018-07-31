@@ -9,23 +9,31 @@ include_once ROOT. '/models/Home.php';
 
 class HomeController
 {
-    private $isLogged = false;
-    private $userLogin = NULL;
+    private  $isLogged = false;
+    private  $userLogin = NULL;
 
-    public function actionIndex()
+    public  function actionIndex()
     {
        if (User::checkLogged() !== false)
        {
-           $this->isLogged = true;
-           $this->userLogin = User::checkLogged();
+           $isLogged = true;
+           $userLogin = User::checkLogged();
        }
        else
        {
-           $this->isLogged = false;
+           $isLogged = false;
        }
        $photoList = array();
        $home = new Home();
        $photoList = $home->getPhotoList();
+       if (isset($_POST['limId']))
+       {
+
+           $toj = $home->getMore($_POST['limId']);
+        //   var_dump($toj);
+           $photoList = array_merge($photoList, $toj);
+       //   var_dump($photoList);
+       }
         require_once(ROOT.'/views/home/index.php');
        return true;//$photoList;
     }
@@ -133,6 +141,22 @@ class HomeController
             echo 'OK';
         else
             echo "false";
+        return true;
+    }
+
+    public function actionDeleteImage()
+    {
+        if (User::checkLogged() === false)
+        {
+            header('Location: /main');
+            return false;
+        }
+        if (isset($_POST) && $_POST['photoId'])
+        {
+            $phId = $_POST['photoId'];
+            $home = new Home();
+            $home->removePhoto($phId);
+        }
         return true;
     }
 }

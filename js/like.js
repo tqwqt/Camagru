@@ -57,7 +57,7 @@ function showComments(commentPrevId, loggedInUser=false, added=false ) {
         }
         else {
             ajaxPost('http://localhost:8101/showComments/'+commentPrevId, function (data) {
-                console.log(data);
+                // console.log(data);
                 var jsonObj = JSON.parse(data);
                 var area = parent.firstElementChild;
                 for(var com in jsonObj)
@@ -177,4 +177,53 @@ function changeLogin() {
 function changeEmail() {
     document.location.assign('cabinet/changeEmail');
 }
+
+function deleteImage(id) {
+    console.log("id="+id);
+    ajaxPost('http://localhost:8101/home/deleteImage', function (data) {
+        if (data.toString().localeCompare('OK') === 0)
+        {
+            var del = document.querySelector('#p'+id);
+            del = del.parentNode;
+            console.log(del);
+            del.parentNode.removeChild(del);
+        }
+        else {
+            console.log(data);
+        }
+    }, {photoId:id})
+}
+
+function tipoScroll() {
+
+    var f = document.querySelector('.cont');
+    f = f.lastElementChild;
+    f = f.previousElementSibling;
+    f = f.firstElementChild.nextElementSibling;
+    ajaxPost('http://localhost:8101/home', function (data) {
+
+        // document.location.reload(true);
+
+        // var jsonObj = JSON.parse(data);
+        // var area = parent.firstElementChild;
+        // for(var com in jsonObj)
+        // {
+        //     addPhotoListBlock(parent,jsonObj[com].text, area, jsonObj[com].login, jsonObj[com].id, loggedInUser );
+        // }
+        location.hash = "";
+        location.hash = f.id;
+        console.log(data);
+        console.log(f.id);
+
+    }, {limId:parseInt(f.id.substr(1))});
+
+}
+
+// function addPhotoListBlock(id, src) {
+//     var main = document.querySelector('.cont');
+//     var f  = main.lastElementChild;
+//     var item = f.cloneNode(true);
+//     var photoInfo = item.firstChild;
+//
+// }
 

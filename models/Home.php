@@ -20,7 +20,8 @@ class Home
             'SELECT photo.id,  photo.url, photo.likes, photo.user_id, user.login FROM photo 
                   LEFT JOIN user
                   ON photo.user_id = user.id
-                  ORDER BY photo.id DESC');
+                  ORDER BY photo.id DESC
+                  LIMIT 6');
         $i = 0;
 
         while ($row = $result->fetch()) {
@@ -33,6 +34,35 @@ class Home
         }
 
         return $photoList;
+    }
+    public function getMore($id)
+    {
+        $db = DbCamagru::getConnection();
+            $query = 'SELECT photo.id,  photo.url, photo.likes, photo.user_id, user.login FROM photo 
+                        LEFT JOIN user
+                        ON photo.user_id = user.id
+                        WHERE photo.id < :id
+                        ORDER BY photo.id DESC
+                        LIMIT 6';
+
+        $res = $db->prepare($query);
+        $res->bindParam(':id', $id, PDO::PARAM_INT);
+        $res->execute();
+        $i = 0;
+$photoList = array();
+        while ($row = $result->fetch()) {
+            $photoList[$i]['id'] = $row['id'];
+            $photoList[$i]['login'] = $row['login'];
+            $photoList[$i]['url'] = $row['url'];
+            $photoList[$i]['user_id'] = $row['user_id'];
+            $photoList[$i]['likes'] = $row['likes'];
+            $i++;
+        }
+
+        return $photoList;
+//        $res = $res->fetchAll(2);
+//        $res = json_encode($res,JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK ,2);
+//        print_r($res);
     }
     public function getLikesCount($photoId)
     {
@@ -112,5 +142,53 @@ class Home
         $res->bindParam(':uid', $uid, PDO::PARAM_INT);
         $res->bindParam(':id', $id, PDO::PARAM_INT);
         return $res->execute();
+    }
+    public function removePhoto($id)
+    {
+        $db = DbCamagru::getConnection();
+
+        if (User::checkLogged() === false){
+            header('Location: /main');
+            return false;
+        }
+        if (!isset($_SESSION))
+            session_start();
+        $uid = $_SESSION['userId'];
+//        $uid = 1;
+        //-------checking if this user have rights to delete this photo------//
+
+        $query = 'SELECT photo.id FROM photo WHERE user_id = :uid AND id = :id';
+        $res = $db->prepare($query);
+        $res->bindParam(':uid', $uid, PDO::PARAM_INT);
+        $res->bindParam(':id', $id, PDO::PARAM_INT);
+        $res->execute();
+        $res = $res->fetch(2);
+        if ($res !== false)
+        {
+            //-------------remove comments for this photo-----------------//
+            unset($res);
+            $query = 'DELETE FROM comment WHERE photo_id = :id';
+            $res = $db->prepare($query);
+            $res->bindParam(':id', $id, PDO::PARAM_INT);
+            $res->execute();
+
+            //-------------remove likes for this photo-----------------//
+            unset($res);
+            $query = 'DELETE FROM user_liked_photo WHERE photo_id = :id';
+            $res = $db->prepare($query);
+            $res->bindParam(':id', $id, PDO::PARAM_INT);
+            $res->execute();
+
+            unset($res);
+            //----------------remove photo--------------------------------//
+            $query = 'DELETE FROM photo WHERE id = :id AND user_id = :uid';
+            $res = $db->prepare($query);
+            $res->bindParam(':uid', $uid, PDO::PARAM_INT);
+            $res->bindParam(':id', $id, PDO::PARAM_INT);
+            $res->execute();
+
+            echo 'OK';
+        }
+        return true;
     }
 }
