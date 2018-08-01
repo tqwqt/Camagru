@@ -12,12 +12,12 @@ class HomeController
     private  $isLogged = false;
     private  $userLogin = NULL;
 
-    public  function actionIndex()
+    public  function actionIndex($lim = false)
     {
        if (User::checkLogged() !== false)
        {
-           $isLogged = true;
-           $userLogin = User::checkLogged();
+           $this->isLogged = true;
+           $this->userLogin = User::checkLogged();
        }
        else
        {
@@ -28,14 +28,11 @@ class HomeController
        $photoList = $home->getPhotoList();
        if (isset($_POST['limId']))
        {
-
-           $toj = $home->getMore($_POST['limId']);
-        //   var_dump($toj);
-           $photoList = array_merge($photoList, $toj);
-       //   var_dump($photoList);
+           $home->getMore($_POST['limId']);
+           return true;
        }
         require_once(ROOT.'/views/home/index.php');
-       return true;//$photoList;
+       return true;
     }
 
     public function actionLike($photoid)

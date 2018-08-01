@@ -34,7 +34,6 @@ class Router
         $uri =  $this->getUri();
         foreach ($this->routes as $pattern => $path)
         {
-//           echo "pattern = $pattern, uri = $uri <br>";
             if (preg_match("~^$pattern$~", $uri))//pattern = routes key, example 'home/([0-9]+)'
             {
                 //получаем внутрений путь
@@ -43,24 +42,15 @@ class Router
                 //определтиь котроллер, экшн, параментры
 
                 $exp = explode('/', $internalRoute);
-//                echo '<pre>';
-//                var_dump($exp);
-//                echo  '</pre>';
                 $conName = array_shift($exp).'Controller';
                 $conName = ucfirst($conName);
-                //echo 'conname='.$conName;
+
                 $actionName = array_shift($exp);
                 $actionName = 'action'.ucfirst($actionName);
                 if (stripos($actionName, '?') !== false)//обрезает то, что после "?"
                 {
                     $actionName = stristr($actionName, '?', true);
                 }
-//                echo "<br>";
-//                echo  $actionName;
-//                echo "<br>";
-//                echo '<pre>';
-//                var_dump($exp);
-//                echo  '</pre>';
                 //создание контролера и вызов метода
                 $contrFile = ROOT.'/controllers/'.$conName.'.php';
                 if (file_exists($contrFile))
@@ -70,16 +60,11 @@ class Router
                 $contrObj = new $conName;
                 $res = call_user_func_array(array($contrObj, $actionName), $exp);
 
-//                var_dump($uri);
-//                var_dump($pattern);
-                //var_dump($actionName);
                 if ($res != null)
                     break;
                 return;
             }
         }
-
-        //$arr = ['str', 1, 'sl'];
     }
 }
 

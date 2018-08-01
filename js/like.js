@@ -6,13 +6,13 @@ function likeImg(id) {
 
     var photo_like = document.getElementById(id);//ClassName('photo_list');
    // document.location.assign('/like/' + id);
-  //  console.log(photo_like.nextElementSibling);
+  //  (photo_like.nextElementSibling);
 
     ajaxPost('http://localhost:8101/like/' + id,function (data) {
         var status = data.match(/\D+/);//data.substring(0,data.length - 1);
-     //   console.log('status='+status);
+     //   ('status='+status);
         var likes = data.match(/\d+/);
-      //  console.log('likes='+likes);
+      //  ('likes='+likes);
         if (status.toString().localeCompare("liked".toString()) === 0)
         {
             document.getElementById(id).setAttribute('src',  '../resources/lkd.svg');
@@ -32,10 +32,13 @@ function showComments(commentPrevId, loggedInUser=false, added=false ) {
     var parent = document.getElementById(commentPrevId).parentNode.parentNode.nextElementSibling;
     var area = parent.getElementsByClassName('commentArea')[0];
     var btn = parent.getElementsByClassName('commentBtn')[0];
-   // console.log(parent.getElementsByClassName('commentArea')[0]);
-    //console.log(parent.getElementsByClassName('commentBtn')[0]);
-    console.log('inshow');
+   // (parent.getElementsByClassName('commentArea')[0]);
+    //(parent.getElementsByClassName('commentBtn')[0]);
+    ('inshow');
     if (!added){
+        (area.style.display);
+        if (!loggedInUser)
+            return;
         if (area.style.display === 'none' && loggedInUser)
         {
             area.style.display = 'inline';
@@ -57,7 +60,7 @@ function showComments(commentPrevId, loggedInUser=false, added=false ) {
         }
         else {
             ajaxPost('http://localhost:8101/showComments/'+commentPrevId, function (data) {
-                // console.log(data);
+                (data);
                 var jsonObj = JSON.parse(data);
                 var area = parent.firstElementChild;
                 for(var com in jsonObj)
@@ -121,14 +124,14 @@ function sendComment(btn, loggedUser) {
                  var prevComBlock = document.getElementById(btn).parentNode;
                  prevComBlock = prevComBlock.previousElementSibling;
                  prevComBlock = prevComBlock.firstElementChild.firstElementChild.id;
-                 console.log(prevComBlock);
+                 (prevComBlock);
                  showComments(prevComBlock,loggedUser, true);
-                 console.log("added");
+                 ("added");
              }
              else
              {
                 // alert('http://localhost:8101/addComment/'+btn+"="+text);
-                 console.log('data='+data+';');
+                 ('data='+data+';');
                  //alert("Something goes wrong!");
              }
          }, {comment:text, photoId:btn});
@@ -138,7 +141,7 @@ function sendComment(btn, loggedUser) {
 function removeComment(target) {
 
    // var toRemove = parent.getAnonymousElementByAttribute(parent, 'com-id', id);
-   // console.log(target.parentNode);
+   // (target.parentNode);
     //target.parentNode.removeChild(target);
 
     ajaxPost('http://localhost:8101/removeComment',function (data) {
@@ -148,11 +151,11 @@ function removeComment(target) {
 
             var par = target.parentNode;
             par.remove(target);
-            console.log("removed");
+            ("removed");
         }
         else
         {
-            console.log('data='+data+';');
+            ('data='+data+';');
         }
     }, {commentId : target.parentNode.getAttribute('com-id')});
 }
@@ -179,17 +182,17 @@ function changeEmail() {
 }
 
 function deleteImage(id) {
-    console.log("id="+id);
+    ('DELETE', id);
     ajaxPost('http://localhost:8101/home/deleteImage', function (data) {
         if (data.toString().localeCompare('OK') === 0)
         {
             var del = document.querySelector('#p'+id);
             del = del.parentNode;
-            console.log(del);
+            (del);
             del.parentNode.removeChild(del);
         }
         else {
-            console.log(data);
+            (data);
         }
     }, {photoId:id})
 }
@@ -200,30 +203,74 @@ function tipoScroll() {
     f = f.lastElementChild;
     f = f.previousElementSibling;
     f = f.firstElementChild.nextElementSibling;
+    // document.location.replace('home/last_'+f.id);
     ajaxPost('http://localhost:8101/home', function (data) {
 
         // document.location.reload(true);
 
-        // var jsonObj = JSON.parse(data);
-        // var area = parent.firstElementChild;
-        // for(var com in jsonObj)
-        // {
-        //     addPhotoListBlock(parent,jsonObj[com].text, area, jsonObj[com].login, jsonObj[com].id, loggedInUser );
-        // }
-        location.hash = "";
-        location.hash = f.id;
-        console.log(data);
-        console.log(f.id);
+        (data);
+        var jsonObj = JSON.parse(data);
+        var area = parent.firstElementChild;
+        for(var com in jsonObj)
+        {
+            addPhotoListBlock(jsonObj[com].id, jsonObj[com].url, jsonObj[com].likes, jsonObj[com].logged, jsonObj[com].islike,
+                jsonObj[com].login);
+        }
+        // location.hash = "";
+        // location.hash = f.id;
+        (f.id);
+        (f);
 
     }, {limId:parseInt(f.id.substr(1))});
 
 }
 
-// function addPhotoListBlock(id, src) {
-//     var main = document.querySelector('.cont');
-//     var f  = main.lastElementChild;
-//     var item = f.cloneNode(true);
-//     var photoInfo = item.firstChild;
-//
-// }
+function addPhotoListBlock(id, src, likes, logged, islike, whoPosted) {
+    var main = document.querySelector('.cont');
+    var f  = main.lastElementChild;
+    f = f.previousElementSibling;
+    // (f);
+    var item = f.cloneNode(true);
+    var photoInfo = item.firstElementChild;
+    var photoList = photoInfo.nextElementSibling;
+    var likeDiv = photoList.nextElementSibling;
+    var commnetBlock = likeDiv.nextElementSibling;
+
+    ///--comBlock----//
+    commnetBlock.firstElementChild.id = 'ta'+id;
+    commnetBlock.firstElementChild.nextElementSibling.id = 'btnc_'+id;
+    ///--comBlock----//
+    ///---photoInfo--//
+    photoInfo.firstElementChild.textContent = whoPosted;
+    var img = photoInfo.querySelector('img');
+    var t = photoInfo.querySelector('.lil');
+    if (img !== null)
+        img.parentNode.removeChild(img);
+    if (logged && logged.toString().localeCompare(whoPosted.toString()) === 0)
+    {
+        img = document.createElement('img');
+        img.src = '../../resources/delete-photo.svg';
+        img.classList = 'like_img';
+        photoInfo.onclick = function(event){
+            var target = event.target;
+            var tId = target.parentNode;
+            if (target.tagName !== "IMG")
+                return;
+            deleteImage(id);
+        };
+        photoInfo.appendChild(img);
+    }
+    ///---photoInfo--//
+    likeDiv.firstElementChild.firstElementChild.id = 'comm_'+id;
+    likeDiv.firstElementChild.nextElementSibling.id = 'like_'+id;
+    if (parseInt(islike) === 1)
+        likeDiv.firstElementChild.nextElementSibling.src = '../resources/lkd.svg';
+    else
+        likeDiv.firstElementChild.nextElementSibling.src = '../resources/camalike.svg';
+    likeDiv.lastElementChild.textContent = likes;
+    photoList.firstElementChild.src = src;
+    photoList.id = 'p'+id;
+    main.insertBefore(item, main.lastElementChild);
+
+}
 

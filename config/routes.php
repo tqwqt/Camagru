@@ -1,6 +1,7 @@
 <?php
 
 return array(
+    'home/last_(p\d+)' => 'home/index/last_$1',
     'home' => 'home/index',
     'home/deleteImage' => 'home/deleteImage',
     'main/register' => 'main/register',

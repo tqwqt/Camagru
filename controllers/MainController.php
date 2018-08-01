@@ -11,7 +11,6 @@ class MainController
 {
     public function actionRegister()
    {
-       echo "Register";
        $login = '';
        $email = '';
        $password = '';
@@ -53,7 +52,6 @@ class MainController
     {
         $login = '';
         $password = '';
-        //echo 'Login';
         if (isset($_POST['btnlogin']))
         {
             $login = $_POST['login'];

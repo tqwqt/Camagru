@@ -48,29 +48,36 @@ class Home
         $res = $db->prepare($query);
         $res->bindParam(':id', $id, PDO::PARAM_INT);
         $res->execute();
-        $i = 0;
-$photoList = array();
-        while ($row = $result->fetch()) {
-            $photoList[$i]['id'] = $row['id'];
-            $photoList[$i]['login'] = $row['login'];
-            $photoList[$i]['url'] = $row['url'];
-            $photoList[$i]['user_id'] = $row['user_id'];
-            $photoList[$i]['likes'] = $row['likes'];
-            $i++;
+        $res = $res->fetchAll(2);
+        //if user liked photo
+        if (!isset($_SESSION))
+            session_start();
+        if (isset($_SESSION['userLogin']))
+        {
+            foreach ($res as $key => $val)
+            {
+                $res[$key]['logged'] = $_SESSION['userLogin'];
+                if (isset($val['id']) && User::islikedPhoto($_SESSION['userId'], $val['id']) !== false)
+                    $res[$key]['islike'] = 1;
+                else
+                    $res[$key]['islike'] = 0;
+            }
         }
-
-        return $photoList;
-//        $res = $res->fetchAll(2);
-//        $res = json_encode($res,JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK ,2);
-//        print_r($res);
+        else
+        {
+            foreach ($res as $key => $val)
+            {
+                $res[$key]['logged'] = null;
+                $res[$key]['islike'] = -1;
+            }
+        }
+        $res = json_encode($res,JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK ,2);
+        print_r($res);
     }
     public function getLikesCount($photoId)
     {
         $db = DbCamagru::getConnection();
         $query = 'SELECT * FROM photo WHERE id = :photoId';
-//        echo '<pre>';
-//        var_dump($photoId);
-//        echo '</pre>';
         $res = $db->prepare($query);
         $res->bindParam(':photoId', $photoId, PDO::PARAM_INT);
         $res->execute();

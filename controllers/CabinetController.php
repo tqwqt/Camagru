@@ -57,7 +57,7 @@ class CabinetController
                 $new = $_POST['password'];
                 $rep = $_POST['rpassword'];
                 $err = User::validatePassword($new, $rep);
-                if (!$err)
+                if ($err !== true )
                     $errors[] = $err;
                 if (User::checkPassworLogin($_SESSION['userLogin'], $old) === false)
                     $errors[] = 'Wrong old password!';

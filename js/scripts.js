@@ -92,9 +92,9 @@ function makePhoto(id) {
     if (elem){
         var style = elem.currentStyle || window.getComputedStyle(elem, false);
         var newW, newH;
-       // console.log(style);
+       // (style);
         stick.src = style.backgroundImage.slice(4, -1).replace(/"/g, "");
-        console.log('s.w, s.h, stick.w, stick.h:', style.width, style.height, stick.width, stick.height);
+        ('s.w, s.h, stick.w, stick.h:', style.width, style.height, stick.width, stick.height);
         if ((parseInt(style.width) < parseInt(style.height)))
         {
             newW = parseInt(style.width);
@@ -104,10 +104,10 @@ function makePhoto(id) {
             newH = parseInt(style.height);
             newW = stick.width * newH / stick.height;
         }
-        console.log(stick.width, stick.height);
-        console.log(stick.style.width, stick.style.height);
+        (stick.width, stick.height);
+        (stick.style.width, stick.style.height);
         // stick.src = elem.style.backgroundImage.src;
-        // console.log('posw, posh:', elem.offsetLeft, elem.offsetTop, elem.parentNode, video.offsetLeft, video.offsetTop);
+        // ('posw, posh:', elem.offsetLeft, elem.offsetTop, elem.parentNode, video.offsetLeft, video.offsetTop);
         context.drawImage(stick, x, y, newW, newH);
     }
 
@@ -125,7 +125,7 @@ function chooseTool(id) {
     var elem = document.getElementById(id);
     var par = document.getElementById('videoParent');
     var child = document.getElementById('mblock');
-    console.log(child);
+    (child);
     if (child !== undefined && child !== null) {
         child.parentNode.removeChild(child);
     }
@@ -143,7 +143,7 @@ function chooseTool(id) {
         // newEl.removeEventListener('click', this);
         //newEl.removeEventListener('onclick', chooseTool(id));
         par.appendChild(newEl);
-        console.log('cordTop, cordLeft', newEl.offsetTop, newEl.offsetLeft, par.offsetTop, par.offsetLeft);
+        ('cordTop, cordLeft', newEl.offsetTop, newEl.offsetLeft, par.offsetTop, par.offsetLeft);
         // newEl.addEventListener('click', resz(newEl));
         //resz(newEl);
         newEl.addEventListener('click', drugNdrop);
@@ -223,13 +223,13 @@ function setResize() {
     }
 
     function resizeBlock(obj_event) {
-        //console.log(obj_event);
+        //(obj_event);
         var point = getXY(obj_event);
         new_w = delta_w + point[0]; // Изменяем новое приращение по ширине
         new_h = delta_h + point[1]; // Изменяем новое приращение по высоте
         block.style.width = new_w + "px"; // Устанавливаем новую ширину блока
         block.style.height = new_h + "px"; // Устанавливаем новую высоту блока
-        console.log("300 resezi, top left", block.offsetTop, block.offsetLeft);
+        ("300 resezi, top left", block.offsetTop, block.offsetLeft);
         /* Если блок выходит за пределы экрана, то устанавливаем максимальные значения для ширины и высоты */
         if (block.offsetLeft + block.clientWidth > clientWidth()) block.style.width = (clientWidth() - block.offsetLeft) + "px";
         if (block.offsetTop + block.clientHeight > clientHeight()) block.style.height = (clientHeight() - block.offsetTop) + "px";
@@ -256,7 +256,7 @@ function drugNdrop() {
         function moveAt(e) {
             ball.style.left = e.pageX - shiftX + 'px';
             ball.style.top = e.pageY - shiftY + 'px';
-            console.log(ball.offsetLeft, ball.offsetTop);
+            (ball.offsetLeft, ball.offsetTop);
         }
 
         document.onmousemove = function(e) {
@@ -293,14 +293,14 @@ function savePhoto(id) {
 
         if (data.toString().localeCompare('OK') === 0)
         {
-            console.log("saved");
+            ("saved");
         }
         else
         {
-            console.log('data='+data+';');
+            ('data='+data+';');
         }
     }, {img : canv.toDataURL('image/png')});
-    //console.log(canv.toDataURL('image/png'));
+    //(canv.toDataURL('image/png'));
 }
 
 //------------------------------UPLOAD FILE-----------------------------------//
@@ -338,7 +338,7 @@ function showCamera() {
     //alert(window.innerHeight + ', '+ window.innerWidth);
     var btnMakePhoto = document.getElementById('makePhoto');
     btnMakePhoto.style.display = 'block';
-    console.log(btnMakePhoto.style.display);
+    (btnMakePhoto.style.display);
     var vidBlock  = document.getElementById('videoDiv');
     var img = document.getElementById('videoParent').querySelector('img');
     if (img !== null)
@@ -379,7 +379,7 @@ function showCamera() {
 
         }
     );
-    console.log(window.innerWidth);
+    (window.innerWidth);
     if (parseInt(window.innerWidth) > 500)
         vidBlock.style.width = vid.style.width;
 
@@ -414,11 +414,11 @@ function checkMime() {
         }
         else
         {
-            console.log('true');
+            ('true');
             uploadFile();
         }
     };
-    // console.log(file);
+    // (file);
     if (file){
         reader.readAsArrayBuffer(file);
     }

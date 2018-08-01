@@ -11,8 +11,6 @@ class DbCamagru
 
     public static function getConnection()
     {
-        //$dbsettings = ROOT.'/config/database.php';
-
         require ROOT.'/config/database.php';
         try {
             $pdo =  new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -23,11 +21,5 @@ class DbCamagru
             $e->getMessage();
         }
         return false;
-//        echo '<pre>';
-//        echo 'sstart';
-//        echo $DB_USER.'<br>';
-//        echo $DB_PASSWORD.'<br>';
-//        echo $DB_DSN;
-//        echo '</pre>';
     }
 }

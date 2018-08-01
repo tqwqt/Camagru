@@ -80,8 +80,8 @@ function addCommentBlock(parent,text, addCommentArea, login, commentId, sessionL
         elem.onclick = function(event, parent){
             var target = event.target;
              var tId = target.parentNode;
-            // console.log(tId.getAttribute('com-id'));
-             console.log(target.tagName);
+            // (tId.getAttribute('com-id'));
+             (target.tagName);
             if (target.tagName !== "IMG")
                 return;
             removeComment(target);

@@ -30,10 +30,8 @@ class PhotoStudioController
         date_default_timezone_set('Europe/Kiev');
         if (!isset($_SESSION))
             session_start();
-        //var_dump($_SESSION);
         $loginId = $_SESSION['userLogin'].$_SESSION['userId'];
         $b64str = explode(',', $_POST['img']);
-       // echo date('m/d/Y h:i:s a', time()).'end';
         $date =  preg_replace('/\s+/','_', date('m_d_Y H_i_s', time()));
         $name = 'resources/users_photo/ph_'. $date;
         $name = $name.'_'.$loginId.'.png';

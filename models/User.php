@@ -20,12 +20,14 @@ class User
         $len = strlen($password);
         if ($len <= 7 || $len > 20)
         {
-            return 'Your password must be longer than 8 and less than 21 letters!';
+            return 'Your password must be longer than 7 and less than 21 letters!';
         }
         if ($password !== $repeat)
         {
             return 'Passwords do not match!';
         }
+        if ($len < 10 && preg_match('/^([a-z])+$/', $password) == 1)
+            return 'This password is too simple, please use uppercase letters or numbers!';
         return true;
     }
     public static function isLoginExist($login)
